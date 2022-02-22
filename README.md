@@ -40,6 +40,7 @@
 	- Live Console (with log file and command history)
 	- Online players chart
 	- Server Activity Log (connections/disconnections, kills, chat, explosions and [custom commands](docs/custom_serverlog.md))
+	- Custom Log for Developer Scripts!
 - Player Manager:
 	- [Warning system](https://www.youtube.com/watch?v=DeE0-5vtZ4E)
 	- Ban (temporary or permanently) system
