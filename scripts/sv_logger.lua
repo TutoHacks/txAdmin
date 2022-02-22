@@ -222,6 +222,10 @@ RegisterNetEvent('txaLogger:DebugMessage', function(data)
     logger(source, 'DebugMessage', data)
 end)
 
+RegisterNetEvent('txaLogger:CustomLog', function(data)
+    logger(source, 'CustomLog', data)
+end)
+
 local function logChatMessage(src, author, text)
     local logData = {
         author = author,
