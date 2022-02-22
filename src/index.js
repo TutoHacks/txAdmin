@@ -263,6 +263,7 @@ GlobalData = {
     runtimeSecret,
     deployerDefaults,
     loopbackInterfaces,
+    isProxy,
 
     //Consts
     validIdentifiers:{
