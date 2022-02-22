@@ -213,7 +213,9 @@ module.exports = class ServerLogger extends LoggerBase {
             } else {
                 eventMessage = `died from ${cause}`;
             }
-
+        } else if (eventData.type === 'CustomLog') {
+            const message = eventData.data || 'unknown';
+            eventMessage = message;
         } else if (eventData.type === 'explosionEvent') {
             const expType = eventData.data.explosionType || 'UNKNOWN';
             eventMessage = `caused an explosion (${expType})`;
