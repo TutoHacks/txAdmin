@@ -59,9 +59,7 @@ module.exports = class WebServer {
         this.app = new Koa();
         this.app.keys = ['txAdmin' + nanoid()];
 
-        // Some people might want to enable it, but we are not guaranteeing XFF security
-        // due to the many possible ways you can connect to koa.
-        // this.app.proxy = true;
+        this.app.proxy = true;
 
         //Session
         this.koaSessionMemoryStore = new KoaSessionMemoryStoreClass();
