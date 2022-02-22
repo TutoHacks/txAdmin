@@ -1,8 +1,7 @@
 -- =============================================
 --  Contains all spectate related logic
 -- =============================================
-
-if (GetConvar('txEnableMenuBeta', 'false') ~= 'true') then
+if (GetConvar('txAdmin-menuEnabled', 'false') ~= 'true') then
     return
 end
 -- Last spectate location stored in a vec3
@@ -38,27 +37,27 @@ local function createScaleformThread()
         end
         PushScaleformMovieFunction(scaleform, "CLEAR_ALL")
         PopScaleformMovieFunctionVoid()
-    
+
         PushScaleformMovieFunction(scaleform, "SET_CLEAR_SPACE")
         PushScaleformMovieFunctionParameterInt(200)
         PopScaleformMovieFunctionVoid()
-    
+
         PushScaleformMovieFunction(scaleform, "SET_DATA_SLOT")
         PushScaleformMovieFunctionParameterInt(1)
         InstructionalButton(GetControlInstructionalButton(1, 194), "Exit Spectate Mode")
         PopScaleformMovieFunctionVoid()
-    
-    
+
+
         PushScaleformMovieFunction(scaleform, "DRAW_INSTRUCTIONAL_BUTTONS")
         PopScaleformMovieFunctionVoid()
-    
+
         PushScaleformMovieFunction(scaleform, "SET_BACKGROUND_COLOUR")
         PushScaleformMovieFunctionParameterInt(0)
         PushScaleformMovieFunctionParameterInt(0)
         PushScaleformMovieFunctionParameterInt(0)
         PushScaleformMovieFunctionParameterInt(80)
         PopScaleformMovieFunctionVoid()
-    
+
         while isSpectateEnabled do
             DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255, 0)
             Wait(0)
@@ -95,6 +94,7 @@ end
 local function preparePlayerForSpec(bool)
     local playerPed = PlayerPedId()
     FreezeEntityPosition(playerPed, bool)
+    SetEntityVisible(playerPed, not bool, 0)
 end
 
 local function createSpectatorTeleportThread()
@@ -102,7 +102,7 @@ local function createSpectatorTeleportThread()
     CreateThread(function()
         while isSpectateEnabled do
             Wait(500)
-            
+
             -- Check if ped still exists
             if not DoesEntityExist(storedTargetPed) then
                 local _ped = GetPlayerPed(storedTargetPlayerId)
@@ -118,7 +118,7 @@ local function createSpectatorTeleportThread()
                     break
                 end
             end
-            
+
             -- Update Teleport
             local newSpectateCoords = calculateSpectatorCoords(GetEntityCoords(storedTargetPed))
             SetEntityCoords(PlayerPedId(), newSpectateCoords.x, newSpectateCoords.y, newSpectateCoords.z, 0, 0, 0, false)
@@ -205,7 +205,7 @@ local function cleanupFailedResolve()
 
     DoScreenFadeIn(500)
 
-    sendSnackbarMessage('error', 'nui_menu.player_modal.actions.interaction.spectate_failed', true)
+    sendSnackbarMessage('error', 'nui_menu.player_modal.actions.interaction.notifications.spectate_failed', true)
 end
 
 -- Client-side event handler for an authorized spectate request
@@ -215,7 +215,7 @@ RegisterNetEvent('txAdmin:menu:specPlayerResp', function(targetServerId, coords)
 
     local targetPlayerId = GetPlayerFromServerId(targetServerId)
     if targetPlayerId == PlayerId() then
-        return sendSnackbarMessage('error', 'nui_menu.player_modal.actions.interaction.spectate_yourself', true)
+        return sendSnackbarMessage('error', 'nui_menu.player_modal.actions.interaction.notifications.spectate_yourself', true)
     end
 
     DoScreenFadeOut(500)

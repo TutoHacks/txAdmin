@@ -9,14 +9,14 @@
         "hang_detected": "lefagyás észlelve",
         "partial_hang_warn": "Részleges lefagyás miatt a szerver 1 perc múlva újraindul. Kérjük, lépj ki.",
         "partial_hang_warn_discord": "Részleges lefagyás miatt, a **%{servername}** 1 perc múlva újraindul.",
-        "schedule_reason": "ütemezett újraindítás %{time}",
+        "schedule_reason": "Ütemezett újraindítás %{time}",
         "schedule_warn": "A szerver ütemezett újraindítás miatt, %{smart_count} percen belül újraindul. Kérjük, lépj ki!. |||| A szerver ütemezetten újra indul %{smart_count} perc múlva.",
         "schedule_warn_discord": "A(z) **%{servername}** ütemezetten újraindul %{smart_count} perc múlva. |||| **%{servername}** ütemezetten újraindul %{smart_count} perc múlva."
     },
     "ban_messages": {
         "kick_temporary": "(%{author}) Ki lettél tiltva a szerverről. Indok: \"%{reason}\". Lejár: %{expiration}.",
         "kick_permanent": "(%{author}) Véglegesen ki lettél tiltva a szerverről. Indok: \"%{reason}\".",
-        "reject_temporary": "Ki lettét tiltva a szerverről.\nLejár: %{expiration}.\nBan ID: %{id}.\nIndok: %{reason}.\nKitiltó admin: %{author}.",
+        "reject_temporary": "Ki lettél tiltva a szerverről.\nLejár: %{expiration}.\nBan ID: %{id}.\nIndok: %{reason}.\nKitiltó admin: %{author}.",
         "reject_permanent": "Véglegesen ki lettél tiltva a szerverről..\nBan ID: %{id}.\nIndok: %{reason}.\nKitiltó admin: %{author}."
     },
     "server_actions": {
@@ -31,8 +31,260 @@
         "status_offline": "**%{servername}** jelenleg **Nem Elérhető**!"
     },
     "nui_warning": {
-        "title": "FIGYELEM",
-        "warned_by": "Figyelmeztet:",
-        "instruction": "Tartsd nyomva a [SPACE]-t 10 másodpercig, hogy eltüntesd az üzenetet."
+        "title": "FIGYELMEZTETÉS",
+        "warned_by": "Figyelmeztetett:",
+        "instruction": "Tartsd lenyomva a [SPACE]-t 10 másodpercig, hogy eltüntesd az üzenetet."
+    },
+    "nui_menu": {
+        "misc": {
+            "help_message": "A txAdmin rendelkezik játékon belüli menüvel!\nGyorsgomb [Game Settings > Key Bindings > FiveM > Open the txAdmin Menu] Próbáld ki!",
+            "menu_not_allowed": "Az azonosítód nem egyezik a txAdminban található admin azonosítókkal.\nHa regisztrálva vagy txAdminban, bizonyosodj meg róla hogy el van mentve az Admin Managerben.",
+            "no_perms": "Ehhez nincs engedélyed.",
+            "unknown_error": "Ismeretlen hiba lépett fel.",
+            "not_enabled": "A txAdmin menü nincs engedélyezve! Engedélyezheted a txAdmin beállítások fülön.",
+            "announcement_title": "Szerver felhívás %{author}:",
+            "dialog_empty_input": "Nem lehet üresen hagyni."
+        },
+        "frozen": {
+            "froze_player": "Lefagyasztottad a játékost!",
+            "unfroze_player": "Feloldottad a fagyasztást a játékoson!",
+            "was_frozen": "Lefagyasztott egy szerveradmin!"
+        },
+        "common": {
+            "cancel": "Vissza",
+            "submit": "Küldés",
+            "error": "Hiba lépett fel",
+            "copied": "Vágólapra másolva."
+        },
+        "page_main": {
+            "tooltips": {
+                "tooltip_1": "%{key} a lapozáshoz és [NYILAK] a menüben való navigáláshoz",
+                "tooltip_2": "Néhány menü rendelkezik al-opcióval  melyek a bal és jobb nyíllal választható"
+            },
+            "player_mode": {
+                "title": "Játékos mód",
+                "noclip": {
+                    "title": "NoClip",
+                    "label": "Körbe repülés",
+                    "success": "NoClip engedélyezve"
+                },
+                "godmode": {
+                    "title": "God",
+                    "label": "Halhatatlanság",
+                    "success": "God mód engedélyezve"
+                },
+                "normal": {
+                    "title": "Normál",
+                    "label": "Normál mód",
+                    "success": "Visszaállítva a normál játékos módba."
+                }
+            },
+            "teleport": {
+                "title": "Teleportálás",
+                "generic_success": "Átléptél egy féreglyukon!",
+                "waypoint": {
+                    "title": "Úticél",
+                    "label": "Teleportálás az úticélhoz",
+                    "error": "Nincs úticél kijelölve."
+                },
+                "coords": {
+                    "title": "Koordináta",
+                    "label": "Menj egy megadott koordinátára",
+                    "dialog_title": "Teleportálás",
+                    "dialog_desc": "A koordinátákat x, y, z formában kell megadnod.",
+                    "dialog_error": "Hibás koordináta. Ilyen formát használj: 111, 222, 33"
+                },
+                "back": {
+                    "title": "Vissza",
+                    "label": "Vissza az utolsó pozíciódra",
+                    "error": "Nincs hová visszamenned!"
+                },
+                "copy": {
+                    "title": "Másolás",
+                    "label": "Jelenlegi koordináta másolása"
+                }
+            },
+            "vehicle": {
+                "title": "Jármű",
+                "onesync_error": "Ezen beállítás használatához, engedélyezd a OneSync-et.",
+                "not_in_veh_error": "Jelenleg nem ülsz járműben!",
+                "spawn": {
+                    "title": "Lehívás",
+                    "label": "Jármű lehívása név alapján",
+                    "dialog_title": "Jármű lehívása",
+                    "dialog_desc": "Add meg a modell nevét amit le szeretnél hívni.",
+                    "dialog_success": "Jármű lehívva!",
+                    "dialog_error": "Jármű ezzel a modell névvel '%{modelName}' nem létezik!",
+                    "dialog_info": "%{modelName} lehívása..."
+                },
+                "fix": {
+                    "title": "Javítás",
+                    "label": "Jelenlegi jármű javítása",
+                    "success": "Jármű megjavítva!"
+                },
+                "delete": {
+                    "title": "Törlés",
+                    "label": "Jelenlegi jármű törlése",
+                    "success": "Jármű törölve!"
+                }
+            },
+            "heal": {
+                "title": "Gyógyítás",
+                "myself": {
+                    "title": "Magamat",
+                    "label": "Életerőd helyreállítása",
+                    "success_0": "Minden seb begyógyítva!",
+                    "success_1": "Mostmár jól kell hogy érezd magad!",
+                    "success_2": "Életerő helyreállítva!",
+                    "success_3": "Bibik megpuszilva!"
+                },
+                "everyone": {
+                    "title": "Mindenki",
+                    "label": "Mindenkit meggyógyít/feléleszt",
+                    "success": "Mindenki meggyógyítva és felélesztve."
+                }
+            },
+            "announcement": {
+                "title": "Felhívás küldése",
+                "label": "Felhívás küldése minden elérhető játékosnak.",
+                "dialog_desc": "Enter the message you want to broadcast to all players.",
+                "dialog_placeholder": "Felhívás...",
+                "dialog_success": "Felhívás elküldve."
+            },
+            "clear_area": {
+                "title": "Terület visszaállítása",
+                "label": "Reset a specified world area to its default state",
+                "dialog_desc": "Állítsd be a sugarát annak a területnek ahol az entitásokat visszaállítanád (0-300). A szerver oldali entitások nem kerülnek visszaállításra",
+                "dialog_success": "Terület visszaállítása %{radius}m sugárban",
+                "dialog_error": "Érvénytelen sugár bevitel. Próbáld újra."
+            },
+            "player_ids": {
+                "title": "ID mód váltása",
+                "label": "Toggle showing player IDs (and other info) above the head of all nearby players",
+                "alert_show": "Közeli játékosok ID-jének mutatása.",
+                "alert_hide": "Közeli játékosok ID-jének elrejtése."
+            }
+        },
+        "page_players": {
+            "misc": {
+                "online_players": "Játékban lévő játékosok",
+                "players": "Játékosok",
+                "search": "Keresés",
+                "zero_players": "Nem található játékos"
+            },
+            "sort": {
+                "label": "Rendezés alapja",
+                "distance": "Távolság",
+                "id": "ID",
+                "joined_first": "Legkorábbi csatlakozás",
+                "joined_last": "Legkésőbbi csatlakozás",
+                "closest": "Legközelebbi",
+                "farthest": "Legtávolabbi"
+            },
+            "card": {
+                "health": "%{percentHealth}% HP"
+            }
+        },
+        "player_modal": {
+            "misc": {
+                "error": "Hiba a játékos adatainak lekérésekor. A hiba alább látható:",
+                "target_not_found": "Nem található játékos ezzel a névvel vagy ID-vel %{target}"
+            },
+            "tabs": {
+                "actions": "Műveletek",
+                "info": "Infó",
+                "ids": "ID-k",
+                "history": "Előzmények",
+                "ban": "Kitiltás"
+            },
+            "actions": {
+                "title": "Játékos műveletek",
+                "command_sent": "Parancs elküldve!",
+                "moderation": {
+                    "title": "Moderálás",
+                    "options": {
+                        "dm": "Privát üzenet",
+                        "warn": "Figyelmeztetés",
+                        "kick": "Kirúgás",
+                        "set_admin": "Admin adás"
+                    },
+                    "dm_dialog": {
+                        "title": "Közvetlen üzenet",
+                        "description": "Mivel kapcsolatban üzensz a játékosnak?",
+                        "placeholder": "Indok...",
+                        "success": "Üzenet elküldve!"
+                    },
+                    "warn_dialog": {
+                        "title": "Figyelmeztetés",
+                        "description": "Milyen indokkal figyelmezeteted a játékost?",
+                        "placeholder": "Indok...",
+                        "success": "A játékos figyelmeztetve!"
+                    },
+                    "kick_dialog": {
+                        "title": "Kirúgás",
+                        "description": "Milyen okból rúgod ki a játékost?",
+                        "placeholder": "Indok...",
+                        "success": "Játékos kirúgva!"
+                    }
+                },
+                "interaction": {
+                    "title": "Interakció",
+                    "options": {
+                        "heal": "Gyógyítás",
+                        "go_to": "Teleportálás",
+                        "bring": "Megidézés",
+                        "spectate": "Megfigyelés",
+                        "toggle_freeze": "Fagyasztás"
+                    },
+                    "notifications": {
+                        "heal_player": "Játékos gyógyítása",
+                        "tp_player": "Teleportálás a játékoshoz",
+                        "bring_player": "Játékos megidézve",
+                        "spectate_failed": "Hiba a játékos megfigyelésénél! Kilépés a megfigyelésből.",
+                        "spectate_yourself": "Magadat nem figyelheted meg.",
+                        "freeze_yourself": "Magadat nem fagyaszthatod le."
+                    }
+                },
+                "troll": {
+                    "title": "Trollkodás",
+                    "options": {
+                        "drunk": "Részeg mód",
+                        "fire": "Felgyújtás",
+                        "wild_attack": "Állat támadás"
+                    }
+                }
+            },
+            "info": {
+                "title": "Játékos infó",
+                "session_time": "Szerveren töltött idő",
+                "play_time": "Játékidő",
+                "joined": "Csatlakozva",
+                "notes_placeholder": "Megjegyzések a játékossal kapcsolatban"
+            },
+            "history": {
+                "title": "Kapcsolódó előzmények",
+                "action_types": {
+                    "warn": "FIGYELMEZTETVE",
+                    "warn_revoked": "Figyelmeztetés visszavonva",
+                    "ban": "KITILTVA",
+                    "ban_revoked": "Kitiltás visszavonva",
+                    "whitelist": "WHITELIST",
+                    "whitelist_revoked": "Whitelist visszavonva"
+                }
+            },
+            "ban": {
+                "title": "Játékos kitiltása",
+                "reason_placeholder": "Indok",
+                "duration_placeholder": "Időtartam",
+                "hours": "Óra",
+                "days": "Nap",
+                "weeks": "Hét",
+                "months": "Hónap",
+                "permanent": "Végleges",
+                "custom": "Egyedi",
+                "helper_text": "Kérlek válassz időtartamot",
+                "submit": "Apply ban"
+            }
+        }
     }
 }

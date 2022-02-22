@@ -3,6 +3,42 @@
     "open": {
       "versions": "> 7.1.0",
       "reason": "Doesn't work when powershell is not in PATH or something like that."
+    },
+    "boxen": {
+      "versions": ">5",
+      "reason": "esm"
+    },
+    "dateformat": {
+      "versions": ">4",
+      "reason": "esm"
+    },
+    "jose": {
+      "versions": ">2",
+      "reason": "esm"
+    },
+    "lowdb": {
+      "versions": ">1",
+      "reason": "esm"
+    },
+    "slash": {
+      "versions": ">3",
+      "reason": "esm"
+    },
+    "windows-release": {
+      "versions": ">4",
+      "reason": "esm"
+    },
+    "chalk": {
+      "versions": ">4",
+      "reason": "esm"
+    },
+    "execa": {
+      "versions": ">5",
+      "reason": "esm"
+    },
+    "got": {
+      "versions": ">11",
+      "reason": "esm"
     }
   }
 }

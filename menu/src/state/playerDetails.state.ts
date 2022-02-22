@@ -5,28 +5,27 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";
-import { PlayerData } from "./players.state";
 import { fetchWebPipe } from "../utils/fetchWebPipe";
 import { debugLog } from "../utils/debugLog";
 import { MockedPlayerDetails } from "../utils/constants";
-
-interface PlayerHistoryItem {
-  id: string;
-  action: string;
-  date: string;
-  reason: string;
-  author: string;
-  color?: string;
-}
+import { PlayerData } from "../hooks/usePlayerListListener";
 
 enum HistoryActionType {
   Warn = "WARN",
   WarnRevoked = "WARN-REVOKED",
-  Kick = "KICK",
   Ban = "BAN",
   BanRevoked = "BAN-REVOKED",
   Whitelist = "WHITELIST",
   WhitelistRevoked = "WHITELIST-REVOKED",
+}
+
+interface PlayerHistoryItem {
+  id: string;
+  action: HistoryActionType;
+  date: string;
+  reason: string;
+  author: string;
+  color?: string;
 }
 
 interface TxAdminPlayerAPIResp {
@@ -57,29 +56,18 @@ const playerDetails = {
     get: async ({ get }) => {
       get(playerDetails.forcePlayerRefresh);
       const assocPlayer = get(playerDetails.associatedPlayer);
-      const assocPlayerLicense = assocPlayer.license;
+      const assocPlayerId = assocPlayer.id;
 
-      try {
-        const res = await fetchWebPipe<TxAdminPlayerAPIResp>(
-          `/player/${assocPlayerLicense}`
-        );
+      const res = await fetchWebPipe<TxAdminPlayerAPIResp>(
+        `/player/${assocPlayerId}`,
+        { mockData: MockedPlayerDetails }
+      );
 
-        debugLog("FetchWebPipe", res, "PlayerFetch");
+      debugLog("FetchWebPipe", res, "PlayerFetch");
 
-        if (res.type === "offline") new Error(res.message);
+      if (res.type === "offline") new Error(res.message);
 
-        return res.logout !== true ? res : false;
-      } catch (e) {
-        if (process.env.DEV_MODE === "browser") {
-          debugLog(
-            "GetPlayerDetails",
-            "Detected browser env, dispatching mock data",
-            "WebPipeReq"
-          );
-          return MockedPlayerDetails;
-        }
-        throw e;
-      }
+      return res.logout !== true ? res : false;
     },
   }),
   forcePlayerRefresh: atom({

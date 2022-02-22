@@ -15,7 +15,7 @@ try {
         separator,
         `Author: André Tabarra (https://github.com/tabarra)`,
         `Repository: https://github.com/tabarra/txAdmin`,
-        `Written with ❤️ for the CitizenFX Collective.`,
+        `txAdmin is a free open source software provided under the license below.`,
         separator,
         fs.readFileSync(path.resolve(__dirname, 'LICENSE'), 'utf8').trim(),
         separator,
@@ -32,11 +32,14 @@ module.exports = {
     target: 'node',
     entry: './main.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
         filename: 'main.js'
+    },
+    node: {
+        __dirname: true
     },
     externals: {
         // discord.js
+        '@discordjs/uws': 'empty',
         '@discordjs/opus': 'empty',
         'node-opus': 'empty',
         'opusscript': 'empty',

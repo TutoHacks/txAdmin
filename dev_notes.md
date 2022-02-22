@@ -1,67 +1,116 @@
 ## TODO:
-> v4.5.0
-- [x] FIXME: bunch of missing stuff here
-- [x] fix cause of death being always suicide (commit 9434d427)
-- [x] update material ui to v5
-- [x] fix(core): removed ansi color escape from srvCmdBuffer
-- [x] new server log with pagination and filter
-- [x] document new log thing
-- [x] clean this file
-- [x] update dev env to fxs/node16 
-- [x] update packages & test
-- [x] feat: database management page
-- [x] fix logging data on diagnostics page
-- [x] fix dashboard stats not working on iframe mode (closes #438)
-- [x] fix player modal for new server log
+- [x] server start after banner
+- [x] remove rofl+clap easter egg from login page
+- [x] fix server started banner printing on quiet mode
+- [x] Change CitizenFX to Cfx.re as per branding consistency (ask aurum)
+- [x] fix admin manager all_permissions issue
+- [x] fix open menu & player id permissions
+- [x] fix menu onesync detection
+- [x] Take menu out of beta:
+    - [x] In settings page, remove additional arguments doc on the menu
+    - [x] Remove the "BETA" in the menu logo
+    - [x] Change `nui_menu.misc.not_enabled` to say "go to tx settings to enable it"
+    - [x] Create a "menu" tab in settings page with options for: enable, tab key, screen side
+    - [x] Add "NEW" tag for settings page and menu tab
+    - [x] In configVault/settings remove `+setr txEnableMenuBeta true` from fxrunner settings string
+    - [x] Update the menu code to use new convar
+    - [x] Test update/new config scenarios
+    - [x] Update `menu.md`
 
-Carryover:
-- [ ] remove the "NEW" tag from `header.html` and `masterActions.html`
-- [ ] new console log
-- [ ] change CitizenFX to Cfx.re as per branding consistency (ask the elements)
-- [ ] somehow still manage to fix the playerlist?
-
-
-Updated:
-@koa/router                             ^10.0.0   →    ^10.1.1
-adm-zip                                  ^0.5.5   →     ^0.5.6     test win/linux
-axios                                   ^0.21.1   →    ^0.21.4
-boxen                                    ^5.0.1   →     ^5.1.2
-chalk                                    ^4.1.1   →     ^4.1.2
-fs-extra                                 ^9.1.0   →    ^10.0.0
-@mui/material                            ^5.0.1   →     ^5.0.2
-koa                                     ^2.13.1   →    ^2.13.3
-koa-ratelimit                            ^5.0.0   →     ^5.0.1
-mysql2                                   ^2.2.5   →     ^2.3.0
-nanoid                                  ^3.1.23   →    ^3.1.28
-node-polyglot                            ^2.4.0   →     ^2.4.2
-notistack                         ^1.0.6-next.3   →     ^2.0.2
-openid-client                            ^4.7.4   →     ^4.9.0
-react-polyglot                           ^0.7.1   →     ^0.7.2
-rotating-file-stream                     ^2.1.5   →     ^2.1.6
-stream-json                              ^1.7.2   →     ^1.7.3
-systeminformation                        ^5.7.7   →     ^5.9.4
-@commitlint/cli                         ^12.1.4   →    ^13.2.0
-@commitlint/config-conventional         ^12.1.4   →    ^13.2.0
-@types/node                            ^16.7.10   →   ^16.10.2
-@types/react                           ^17.0.20   →   ^17.0.26
-eslint                                  ^7.30.0   →    ^7.32.0
-husky                                    ^6.0.0   →     ^7.0.2
-nodemon                                 ^2.0.10   →    ^2.0.13
-typescript                              ^4.3.5    →     ^4.4.3
+- [ ] dm via snackbar
+- [ ] wav for announcements
+- [ ] update `README.md`
+- [ ] replace `txaDropIdentifiers` with `txAdmin:events:playerBanned` hook
+- [ ] Migrate console log to new logger
+- [ ] Migrate all log routes
+- [ ] Add download modal to log pages
+- [ ] replace all fxRunner.srvCmd* and only expose:
+    - sync fxRunner.srvRawCmd(string) - to be used by live console
+    - async fxRunner.srvCmd(array, timeout) - to be awaited with the status response
 
 
-Not updated:
-dateformat      esm
-boxen           esm
-jose            apparently cjs is available, but does zap even plan on using it?
-lowdb           esm - complicated
-slash           esm
-windows-release esm
 
-https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+Quando terminar de importar as traduções:
+[x] Remover redundantes:
+    - nui_menu.misc.general_no_perms, nui_menu.misc.action_unauthorized -> no_perms
+    - nui_menu.common.error -> nui_menu.misc.unknown_error
+[x] Renomear clear_area.dialog_description -> clear_area.dialog_desc
+[x] sync new labels
+[x] Adicionar tradução pro botão BAN do `DialogBanView.tsx`
+[x] Mergir pt (migration no vault)
+[ ] Quebrar snackbar de not admin em dois, um se confirmado que o problema são os identifiers, outro pra qualquer outro tipo de problema
+[ ] the kick/warn/dm reason modal title should have the username as key in the translation
 
 
-> User report: when admin use txadmin for first time, system ask him to change password, if he change it, all admins must restart to get txadmin working again
+
+
+verificar o pq heartbeat as vezes é lento
+
+Random issue diagnostics:
+- https://media.discordapp.net/attachments/589106731376836608/932035916812390430/unknown.png
+
+CreateThread(function()
+  local Wait = Wait
+  local id = PlayerId()
+  while true do
+    SetSuperJumpThisFrame(id)
+    Wait(0)
+  end
+end)
+
+
+
+> If you're in no-clip you should be put in god mode. NPCs still know you're there and shoot you.
+The code to set godmode is there, but not working
+
+
+
+Pro debug da playerlist:
+- comando pra printar: [primeiro,ultimo,count,sum]
+- comando get initial
+- comando get full
+- algum tipo de print quando as coisas acontecerem vai ser necessário
+- nao esquecer de remover a suggestion 
+
+
+
+FIXME: sendMenuMessage('setServerCtx', ServerCtx)
+
+FIXME: quando o menu abrir, deveria voltar os list item pro default deles
+
+-- Adapt `txAdmin:beta:deathLog` as well as add cusstom commands and logs
+
+
+
+### TP:
+https://freesound.org/search/?q=teleport&page=6#sound
+    https://freesound.org/people/Dpoggioli/sounds/196907/
+    https://freesound.org/people/DWOBoyle/sounds/474179/
+    https://freesound.org/people/DWOBoyle/sounds/474180/
+    https://freesound.org/people/michael_kur95/sounds/254541/
+
+
+### Gun:
+https://freesound.org/search/?q=toy+gun&f=&s=score+desc&advanced=0&g=1
+https://freesound.org/browse/tags/laser/?page=5#sound
+    https://freesound.org/people/nsstudios/sounds/344276/
+    https://freesound.org/people/HadaHector/sounds/446383/
+    https://freesound.org/people/unfa/sounds/193427/
+
+Master sem fivem:
+- Na página de pin, ter 2 botões, um pra criar conta com e outro sem fivem
+- addMaster:handlePin() pegar parametro e ou jogar pro idm, ou pra pagina addmaster mas com o login habilitado e obrigatório
+- não tem como colocar isso sem termos o modal que fica aparecendo pedindo pro admin inserir ou fivem, ou discord, ou marcar que essa conta não vai ter admin ingame
+
+
+
+
+Copy key Scenarios:
+- Following random tutorial exactly
+- Following host-specific tutorial exactly
+- Copying files to another host/path
+- Copying files to cloned image
+- Pterodactyl
 
 > We could totally do like a "jump in time" feature for the log page.
 > A slider with 500 steps, and an array with 500 timestamps
@@ -73,47 +122,8 @@ remover o \s?
 
 
 
-### Menu playerlist fix
-Server:
-- Will have it's own playerlist with {id, name, health, vehClass, coords}
-- Every 2.5s run through the playerlist updating {health, vehClass, coords}
-- On player Join/Leave:
-    - Add {id, name, 0, 0, 0} to playerlist or remove from playerlist
-    - TriggerClientEvent "updatePlayerlist" with [id, name] or [id, false] to all admins
-- On admin join/auth:
-    - Send event "setInitialPlaylist" with [[id, name]]
-- On gimmeDetailedPlayerlist event:
-    - check if admin
-    - get source coords
-    - for each player, get dist from source (cast to integer)
-    - reply with event setDetailedPlayerlist and payload [{id, health, vehClass, dist}]
+-- Why both have the same debug data? https://i.imgur.com/WGawiyr.png
 
-Client:
-- Updates playerlist on setInitialPlaylist/updatePlayerlist/setDetailedPlayerlist
-- On player tab open: getDetailedPlayerlist()
-- Every 5 seconds when player tab is opened: getDetailedPlayerlist()
-- Maybe: when the player tab is mounted, add a message that says "updating playerlist" and hide after first detailed playerlist arrives
-
-NOTE: delay based on function https://www.desmos.com/calculator/ls0lfokshc
-```lua
-local minDelay = 2000
-local maxDelay = 5000
-local maxPlayersDelayCeil = 150 --at this number, the delay won't increase more
-
-local hDiff = maxDelay - minDelay
-local calcDelay = (hDiff/maxPlayersDelayCeil) * playerCount + minDelay
-local delay = math.min(calcDelay, maxDelay)
-```
-
-NOTE: send everything as array? 
-[1234,"namenamenamename"]
-{"i":1234,"n":"namenamenamename"}
-[1234,200,1,9999]
-{"i":1234,"h":200,"v":1,"d":9999}
-
-FIXME: update min fxserver version to the one where bubble exposed the GetVehClass to the server
-
-TODO: For now we can do this way, but probably better to set a linear function to get the interval from 2.5s to 5s (both client and server) based on the number of players
 
 
 
@@ -149,9 +159,22 @@ To check of admin perm, just do `IsPlayerAceAllowed(src, 'txadmin.xxxxxx')`
 > Don't use, but I'll leave it saved here: https://github.com/citizenfx/fivem/commit/fd3fae946163e8af472b7f739aed6f29eae8105f
 
 
-### Admin gun
-An "admin gun" where you point a gun to a player and when you point it to a player it shows this player's info, and when you "shoot it" it opens that player's modal.
-If not a custom gun model, just use the point animation and make sure we have a crosshair
+### txBanana Admin Gun
+- banana as a gun, txBanana
+- preferably without taking away inventory from user
+- keybind to toggle gun (grab or put away)
+- when you point at player, show above head some info
+- when you "shoot" it will open the player menu and hopefully fire a laser or something
+
+
+### ESM updates
+dateformat      esm
+boxen           esm
+jose            apparently cjs is available, but does zap even plan on using it?
+lowdb           esm - complicated
+slash           esm
+windows-release esm
+NOTE: nice guide https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 
 ### recipe engine todo:
@@ -160,30 +183,41 @@ If not a custom gun model, just use the point animation and make sure we have a 
 - every X download_github wait some time - maybe check if ref or not, to be smarter
 - https://github.com/isomorphic-git/isomorphic-git
 - easy recipe tester
-- fully automated deploy process via CLI. You just set the recipe file path, as well as the required variables, and you can get your server running without any user interaction .
+- fully automated deploy process via CLI. You just set the recipe file path, as well as the required variables, and you can get your server running without any user interaction.
+
+
+### Report System (random ideas)
+- persistent, save in database?
+- have two different status: visited (arr of admins), closed (admin that closed)
+- this one is worth having discordwebhook
+
+References (get usage count):
+https://forum.cfx.re/t/release-admin-reply-report-command/73894
+https://forum.cfx.re/t/release-esx-ban-warning-help-assist-system/786080
+https://forum.cfx.re/t/release-badgerreports-reports-through-discord-and-in-game/1145714/1
+https://forum.cfx.re/t/release-fivem-advanced-reports-system/1798535
+https://forum.cfx.re/t/esx-advanced-report/1636000
+https://forum.cfx.re/t/standalone-esx-reportsystem-a-completely-innovative-report-system-paid/3710522
+https://forum.cfx.re/t/free-esx-simple-mysql-reports-system/3555465
+https://forum.cfx.re/t/paid-esx-new-advanced-report-system/4774382
+https://forum.cfx.re/t/standalone-advanced-report-system/4774403/1
+
 
 ### Todozinhos:
-pagina de adicionar admin precisa depois do modal, mostrar mais info:
-username, senha, potencialmente link, instruções de login
-
-warn auto dismiss 15s
-FreezeEntityPosition need to get the veh
-debugModeEnabled and isMenuDebug are redundant, should probably just use the one from shared
+- pagina de adicionar admin precisa depois do modal, mostrar mais info:
+    - username, senha, potencialmente link, instruções de login
+- FreezeEntityPosition need to get the veh
+    - já foi feito? tem issue aberto, e já teve um pr feito
+- começar a ler o ui_label dos manifests e usar na página de resources
 
 
 
 
 
 =======================================
-### old stuff:::
-- precisamos garantir que uma sessão criada via NUI seja só usada com nui
-- criar um novo token, mudar no primeiro tick
-- desabilitar master actions pra quando for NUI
 
 Small Stuff:
 - [ ] try json stream on lowdb
-- [ ] menu: add debouncer for main options keydown
-- [ ] menu: fix heal self/server behavior inconsistent with player mode and teleport
 - [ ] block execution if GetCurrentResourceName() != 'monitor'
 - [ ] player modal must show if the user is banned/whitelisted or not, and an easy way to revoke it
 - [ ] check EOL and warn user - new Date('2021-09-14T07:38:51+00:00').getTime()
@@ -409,7 +443,7 @@ rm -rf dist && npm run build && tar.exe -cvf dist/monitor.zip dist/* && explorer
 export TXADMIN_DEFAULT_LICENSE="cfxk_xxxxxxxxxxxxxxxxxxxx_xxxxx"
 npm-upgrade
 con_miniconChannels script:monitor*
-+set svgui_disable true +setr txAdminMenu-debugMode true +setr txEnableMenuBeta true
++set svgui_disable true +setr txAdmin-menuDebug true +setr txEnableMenuBeta true
 
 # eslint stuff
 npx eslint ./src/**
@@ -426,3 +460,10 @@ cdt
 cd web/public/
 curl -o svMain.json http://localhost:40120/chartData/svMain
 ```
+Don't commit:
+ver se o bubble já criou source tracking no fd3
+o problema é que um recurso malicioso pode spammar log
+ou então fazer um playerJoining fake com ids fake
+pelo menos garantir que dois playerJoining no mesmo id não vai sobrescrever
+devido ao logger buffer, outro recurso pode mandar o mesmo id antes
+talvez checar se já existe, e nesse caso pegar os IDs do playercontroller e salvar em log a discrepancia?

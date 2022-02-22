@@ -34,5 +34,257 @@
         "title": "VERWARNUNG",
         "warned_by": "Verwarnt von:",
         "instruction": "Halte deine [LEERTASTE] für 10 Sekunden gedrückt, um diese Mitteilung zu schließen."
+    },
+    "nui_menu": {
+        "misc": {
+            "help_message": "txAdmin Menü aktiviert, tippe /tx ein, um es zu öffnen.\nDu kannst zusätzlich in den Einstellungen eine Taste zuweisen [Einstellungen > Steuerung > FiveM > txAdmin].",
+            "menu_not_allowed": "Deine IDs stimmen mit keiner bei txAdmin registrierten überein.\n Wenn du bei txAdmin registriert bist, stelle sicher, dass die richtigen IDs gespeichert sind.",
+            "no_perms": "Du hast diese Berechtigung nicht.",
+            "unknown_error": "Ein unbekannter Fehler ist aufgetreten.",
+            "not_enabled": "Das txAdmin Menü ist nicht aktiviert! Du kannst es in den txAdmin Einstellungen aktivieren.",
+            "announcement_title": "Serverweite Ankündigung von %{author}:",
+            "dialog_empty_input": "Du kannst keine leere Eingabe haben."
+        },
+        "frozen": {
+            "froze_player": "Du hast den Spieler eingefroren!",
+            "unfroze_player": "Du hast den Spieler entfroren!",
+            "was_frozen": "Du wurdest von einem Teammitglied eingefroren!"
+        },
+        "common": {
+            "cancel": "Abbrechen",
+            "submit": "Senden",
+            "error": "Ein Fehler ist aufgetreten.",
+            "copied": "In die Zwischenablage kopiert."
+        },
+        "page_main": {
+            "tooltips": {
+                "tooltip_1": "Drücke %{key} um die Seiten zu wechseln & die Pfeiltasten um im Menü zu navigieren",
+                "tooltip_2": "Bestimmte Menüpunkte haben Unteroptionen, die mit den linken und rechten Pfeiltasten ausgewählt werden können"
+            },
+            "player_mode": {
+                "title": "Spieler Modus",
+                "noclip": {
+                    "title": "NoClip",
+                    "label": "Fliege herum",
+                    "success": "NoClip aktiviert"
+                },
+                "godmode": {
+                    "title": "God Mode",
+                    "label": "Unbesiegbar",
+                    "success": "God Mode aktiviert"
+                },
+                "normal": {
+                    "title": "Normal",
+                    "label": "Standard Modus",
+                    "success": "Standard Modus wiederhergestellt."
+                }
+            },
+            "teleport": {
+                "title": "TP",
+                "generic_success": "Spieler teleportiert",
+                "waypoint": {
+                    "title": "Wegpunkt",
+                    "label": "Teleportiere zu Wegpunkt",
+                    "error": "Du hast keinen Wegpunkt gesetzt!"
+                },
+                "coords": {
+                    "title": "Koordinaten",
+                    "label": "Teleportiere zu Koordinaten",
+                    "dialog_title": "Teleportieren",
+                    "dialog_desc": "Koordinaten im Format x, y, z eingeben.",
+                    "dialog_error": "Ungültige Koordinaten. Muss im Format 111, 222, 33 sein!"
+                },
+                "back": {
+                    "title": "Zurück",
+                    "label": "Zur letzten Position zurück",
+                    "error": "Du hast keine letzte Position"
+                },
+                "copy": {
+                    "title": "Koordinaten Kopieren",
+                    "label": "Kopiere in die Zwischenablage"
+                }
+            },
+            "vehicle": {
+                "title": "Fahzeug",
+                "onesync_error": "Diese Option erfordert, dass OneSync für die Verarbeitung von Server Objekten aktiviert ist",
+                "not_in_veh_error": "Du befindest dich in keinem Fahrzeug!",
+                "spawn": {
+                    "title": "Spawn",
+                    "label": "Spawnname eingeben",
+                    "dialog_title": "Fahrzeug spawnen",
+                    "dialog_desc": "Gebe den Spawnname des Fahrzeugs ein, dass du spawnen möchtest.",
+                    "dialog_success": "Fahrzeug gespawnt!",
+                    "dialog_error": "Der Spawnname '%{modelName}' existiert nicht!",
+                    "dialog_info": "Versuche %{modelName} zu spawnen."
+                },
+                "fix": {
+                    "title": "Reparieren",
+                    "label": "Repariere dein Fahrzeug",
+                    "success": "Fahrzeug repariert!"
+                },
+                "delete": {
+                    "title": "Entfernen",
+                    "label": "Entferne das Fahrzeug",
+                    "success": "Fahrzeug entfernt!"
+                }
+            },
+            "heal": {
+                "title": "Heilen",
+                "myself": {
+                    "title": "Selbst",
+                    "label": "Heilen und wiederbeleben",
+                    "success_0": "Alles geheilt!",
+                    "success_1": "Jetzt solltest du dich besser fühlen!",
+                    "success_2": "Wieder voll gemacht!",
+                    "success_3": "Wunden geheilt!"
+                },
+                "everyone": {
+                    "title": "Alle Spieler",
+                    "label": "Heilen und wiederbeleben",
+                    "success": "Alle Spieler geheilt und wiederbelebt"
+                }
+            },
+            "announcement": {
+                "title": "Ankündigung schicken",
+                "label": "Ankündigung an alle Spieler schicken.",
+                "dialog_desc": "Enter the message you want to broadcast to all players.",
+                "dialog_placeholder": "Deine Ankündigung ...",
+                "dialog_success": "Versenden der Ankündigung!"
+            },
+            "clear_area": {
+                "title": "Weltbereich zurücksetzen",
+                "label": "Reset a specified world area to its default state",
+                "dialog_desc": "Bitte gib einen Radius (0-300) ein, in dem du alle Objekte zurücksetzen möchtest. Dadurch werden nicht serverseitig erzeugte Objekte gelöscht",
+                "dialog_success": "Zurücksetzen im Radius von %{radius}m",
+                "dialog_error": "Ungültiger Radius! Gib einen Radius zwischen 0 und 300 ein."
+            },
+            "player_ids": {
+                "title": "Spieler IDs (NameTags)",
+                "label": "Toggle showing player IDs (and other info) above the head of all nearby players",
+                "alert_show": "Spieler IDs (NameTags) aktiviert.",
+                "alert_hide": "Spieler IDs (NameTags) deaktiviert."
+            }
+        },
+        "page_players": {
+            "misc": {
+                "online_players": "Alle Spieler",
+                "players": "Spieler",
+                "search": "Suche",
+                "zero_players": "Keine Spieler gefunden"
+            },
+            "sort": {
+                "label": "Sortieren nach",
+                "distance": "Entfernung",
+                "id": "ID",
+                "joined_first": "steigend",
+                "joined_last": "fallend",
+                "closest": "am nächsten",
+                "farthest": "am weitesten"
+            },
+            "card": {
+                "health": "%{percentHealth}% Leben"
+            }
+        },
+        "player_modal": {
+            "misc": {
+                "error": "Beim Abrufen der Spielerdetails ist ein Fehler aufgetreten. Der Fehler wird unten angezeigt:",
+                "target_not_found": "Konnte keinen Spieler mit der ID oder dem Nutzernamen von %{target} finden"
+            },
+            "tabs": {
+                "actions": "Aktionen",
+                "info": "Info",
+                "ids": "IDs",
+                "history": "Vergangenheit",
+                "ban": "Ban"
+            },
+            "actions": {
+                "title": "Spieler Aktionen",
+                "command_sent": "Befehl geschickt!",
+                "moderation": {
+                    "title": "Moderation",
+                    "options": {
+                        "dm": "DM",
+                        "warn": "Verwarnen",
+                        "kick": "Kicken",
+                        "set_admin": "Admin verwalten"
+                    },
+                    "dm_dialog": {
+                        "title": "Direktnachricht",
+                        "description": "Was ist der Grund, diesem Spieler eine Direktnachricht zu senden?",
+                        "placeholder": "Grund...",
+                        "success": "Deine DM wurde gesendet!"
+                    },
+                    "warn_dialog": {
+                        "title": "Warn",
+                        "description": "Was ist der Grund, diesen Spieler zu verwarnen?",
+                        "placeholder": "Reason...",
+                        "success": "Der Spieler wurde verwarnt!"
+                    },
+                    "kick_dialog": {
+                        "title": "Kicken",
+                        "description": "Was ist der Grund, diesen Spieler zu kicken?",
+                        "placeholder": "Grund...",
+                        "success": "Der Spieler wurde gekickt!"
+                    }
+                },
+                "interaction": {
+                    "title": "Interaktionen",
+                    "options": {
+                        "heal": "Heilen",
+                        "go_to": "Gehe zu",
+                        "bring": "Bringen",
+                        "spectate": "Beobachten",
+                        "toggle_freeze": "Einfrieren"
+                    },
+                    "notifications": {
+                        "heal_player": "Spieler heilen",
+                        "tp_player": "Zu Spieler teleportieren",
+                        "bring_player": "Spieler teleportiert",
+                        "spectate_failed": "Der Spieler konnte nicht beobachtet werden! Beobachtung verlassen.",
+                        "spectate_yourself": "Du kannst dich nicht selbst beobachten",
+                        "freeze_yourself": "Du kannst dich nicht selbst einfrieren"
+                    }
+                },
+                "troll": {
+                    "title": "Trolling",
+                    "options": {
+                        "drunk": "Betrunken machen",
+                        "fire": "Anzünden",
+                        "wild_attack": "Wild Angriff"
+                    }
+                }
+            },
+            "info": {
+                "title": "Spielerinfos",
+                "session_time": "Aktive Sitzung",
+                "play_time": "Spielzeit",
+                "joined": "Beigetreten",
+                "notes_placeholder": "Notizen zu diesem Spieler"
+            },
+            "history": {
+                "title": "Vergangenheit",
+                "action_types": {
+                    "warn": "VERWARNT",
+                    "warn_revoked": "VERWARNUNG AUFGEHOBEN von:",
+                    "ban": "GEBANNT",
+                    "ban_revoked": "BAN AUFGEHOBEN von:",
+                    "whitelist": "WHITELIST",
+                    "whitelist_revoked": "WHITELIST ENTFERNT von:"
+                }
+            },
+            "ban": {
+                "title": "Spieler Bannen",
+                "reason_placeholder": "Grund",
+                "duration_placeholder": "Dauer",
+                "hours": "Stunden",
+                "days": "Tage",
+                "weeks": "Wochen",
+                "months": "Monate",
+                "permanent": "Permanent",
+                "custom": "Benutzerdefiniert",
+                "helper_text": "Bitte eine Dauer angeben",
+                "submit": "Apply ban"
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 //Requires
 const modulename = 'Translator';
 const fs = require('fs');
+const path = require('path');
 const Polyglot = require('node-polyglot');
 const { dir, log, logOk, logWarn, logError } = require('../extras/console')(modulename);
 
@@ -24,8 +25,7 @@ const languages = {
     nl: require('../../locale/nl.json'),
     no: require('../../locale/no.json'),
     pl: require('../../locale/pl.json'),
-    pt_BR: require('../../locale/pt_BR.json'),
-    pt_PT: require('../../locale/pt_PT.json'),
+    pt: require('../../locale/pt.json'),
     ro: require('../../locale/ro.json'),
     ru: require('../../locale/ru.json'),
     sv: require('../../locale/sv.json'),
@@ -43,6 +43,7 @@ module.exports = class Translator {
         // logOk('Started');
         this.language = globals.config.language;
         this.polyglot = null;
+        this.customLocalePath = path.join(GlobalData.dataPath, 'locale.json');
 
         //Load language
         this.setupTranslator(true);
@@ -103,11 +104,11 @@ module.exports = class Translator {
         } else if (lang === 'custom') {
             try {
                 return JSON.parse(fs.readFileSync(
-                    `${GlobalData.dataPath}/locale.json`,
+                    this.customLocalePath,
                     'utf8',
                 ));
             } catch (error) {
-                throw new Error(`Failed to load '${GlobalData.dataPath}/locale.json'. (${error.message})`);
+                throw new Error(`Failed to load '${this.customLocalePath}'. (${error.message})`);
             }
 
         //If its an invalid language

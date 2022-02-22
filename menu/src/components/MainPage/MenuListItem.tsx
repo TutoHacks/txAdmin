@@ -1,6 +1,13 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Theme } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+  Theme,
+  Typography,
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import { useKeyboardNavigation } from "../../hooks/useKeyboardNavigation";
 import { Code } from "@mui/icons-material";
 import { fetchNui } from "../../utils/fetchNui";
@@ -11,14 +18,15 @@ import {
 } from "../../state/permissions.state";
 import { userHasPerm } from "../../utils/miscUtils";
 import { useSnackbar } from "notistack";
+import { useTooltip } from '../../provider/TooltipProvider';
 
 export interface MenuListItemProps {
-  icon: JSX.Element;
-  primary: string;
-  secondary: string;
-  onSelect: () => void;
-  selected: boolean;
+  title: string;
+  label: string;
   requiredPermission?: ResolvablePermission;
+  icon: JSX.Element;
+  selected: boolean;
+  onSelect: () => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -27,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   rootDisabled: {
     borderRadius: 15,
-    opacity: 0.3
+    opacity: 0.3,
   },
   icon: {
     color: theme.palette.text.secondary,
@@ -40,19 +48,29 @@ const useStyles = makeStyles((theme: Theme) => ({
 // TODO: Actually do disabled item styling right now it will only remove
 // enter from working
 export const MenuListItem: React.FC<MenuListItemProps> = memo(
-  ({ icon, primary, onSelect, secondary, selected, requiredPermission }) => {
+  ({
+    title,
+    label,
+    requiredPermission,
+    icon,
+    selected,
+    onSelect,
+  }) => {
     const classes = useStyles();
     const t = useTranslate();
     const divRef = useRef<HTMLDivElement | null>(null);
     const userPerms = usePermissionsValue();
-    const isUserAllowed = requiredPermission ? userHasPerm(requiredPermission, userPerms) : true;
+    const isUserAllowed = requiredPermission
+      ? userHasPerm(requiredPermission, userPerms)
+      : true;
     const { enqueueSnackbar } = useSnackbar();
+    const { setTooltipText } = useTooltip();
 
     const handleEnter = (): void => {
       if (!selected) return;
 
       if (!isUserAllowed) {
-        enqueueSnackbar(t("nui_menu.misc.action_unauthorized"), {
+        enqueueSnackbar(t("nui_menu.misc.no_perms"), {
           variant: "error",
           anchorOrigin: {
             horizontal: "center",
@@ -76,6 +94,12 @@ export const MenuListItem: React.FC<MenuListItemProps> = memo(
       }
     }, [selected]);
 
+    useEffect(() => {
+      if (selected) {
+        setTooltipText(label);
+      }
+    }, [selected])
+
     useKeyboardNavigation({
       onEnterDown: handleEnter,
       disableOnFocused: true,
@@ -91,8 +115,7 @@ export const MenuListItem: React.FC<MenuListItemProps> = memo(
         >
           <ListItemIcon className={classes.icon}>{icon}</ListItemIcon>
           <ListItemText
-            primary={primary}
-            secondary={secondary}
+            primary={title}
             classes={{
               primary: classes.overrideText,
             }}
@@ -104,31 +127,29 @@ export const MenuListItem: React.FC<MenuListItemProps> = memo(
 );
 
 interface MenuListItemMultiAction {
+  name?: string | JSX.Element;
   label: string;
   value: string | number | boolean;
-  onSelect: () => void;
   icon?: JSX.Element;
-  primary?: string | JSX.Element;
+  onSelect: () => void;
 }
 
 export interface MenuListItemMultiProps {
-  actions: MenuListItemMultiAction[];
+  title: string;
+  requiredPermission?: ResolvablePermission;
   initialValue?: MenuListItemMultiAction;
   selected: boolean;
-  primary: string;
   icon: JSX.Element;
-  requiredPermission?: ResolvablePermission;
-  showCurrentPrefix: boolean;
+  actions: MenuListItemMultiAction[];
 }
 
 export const MenuListItemMulti: React.FC<MenuListItemMultiProps> = memo(
   ({
     selected,
-    primary,
+    title,
     actions,
     icon,
     initialValue,
-    showCurrentPrefix,
     requiredPermission,
   }) => {
     const classes = useStyles();
@@ -136,15 +157,18 @@ export const MenuListItemMulti: React.FC<MenuListItemMultiProps> = memo(
     const [curState, setCurState] = useState(0);
     const userPerms = usePermissionsValue();
     const { enqueueSnackbar } = useSnackbar();
+    const { setTooltipText } = useTooltip()
 
-    const isUserAllowed = requiredPermission ? userHasPerm(requiredPermission, userPerms) : true;
+    const isUserAllowed = requiredPermission
+      ? userHasPerm(requiredPermission, userPerms)
+      : true;
 
     const compMounted = useRef(false);
 
     const divRef = useRef<HTMLDivElement | null>(null);
 
     const showNotAllowedAlert = () => {
-      enqueueSnackbar(t("nui_menu.misc.action_unauthorized"), {
+      enqueueSnackbar(t("nui_menu.misc.no_perms"), {
         variant: "error",
         anchorOrigin: {
           horizontal: "center",
@@ -176,10 +200,16 @@ export const MenuListItemMulti: React.FC<MenuListItemMultiProps> = memo(
       }
     }, [curState]);
 
+    useEffect(() => {
+      if (actions[curState]?.label && selected) {
+        setTooltipText(actions[curState]?.label);
+      }
+    }, [curState, selected]);
+
     const handleLeftArrow = () => {
       if (!selected) return;
 
-      fetchNui("playSound", "move");
+      fetchNui("playSound", "move").catch();
       const nextEstimatedItem = curState - 1;
       const nextItem =
         nextEstimatedItem < 0 ? actions.length - 1 : nextEstimatedItem;
@@ -200,7 +230,7 @@ export const MenuListItemMulti: React.FC<MenuListItemMultiProps> = memo(
       if (!selected) return;
       if (!isUserAllowed) return showNotAllowedAlert();
 
-      fetchNui("playSound", "enter");
+      fetchNui("playSound", "enter").catch();
       actions[curState].onSelect();
     };
 
@@ -213,19 +243,26 @@ export const MenuListItemMulti: React.FC<MenuListItemMultiProps> = memo(
 
     return (
       <div ref={divRef}>
-        <ListItem 
+        <ListItem
           className={isUserAllowed ? classes.root : classes.rootDisabled}
-          dense 
+          dense
           selected={selected}
         >
           <ListItemIcon className={classes.icon}>
-            {actions[curState]?.icon || icon}
+            {actions[curState]?.icon ?? icon}
           </ListItemIcon>
           <ListItemText
-            primary={actions[curState]?.primary || primary}
-            secondary={`${showCurrentPrefix ? "Current: " : ""}${
-              actions[curState]?.label || "Unknown"
-            }`}
+            primary={
+              <>
+                {title}:&nbsp;
+                <Typography
+                  component="span"
+                  color="text.secondary"
+                >
+                  {actions[curState]?.name ?? "???"}
+                </Typography>
+              </>
+            }
             classes={{
               primary: classes.overrideText,
             }}

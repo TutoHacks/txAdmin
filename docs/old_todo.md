@@ -549,6 +549,59 @@ More:
 - [x] fix(nui): auth source for zap servers
 - [x] chore: updated a few dependencies
 > v4.5.0
+- [x] potentially fixed spectate black screen
+- [x] added player freeze option
+- [x] added option for right align of the menu
+- [x] removed ip logging
+- [x] fixed persistent focus after menu close by /tx
+- [x] fixed spectate with wrong scaleform instructions after noclip
+- [x] fixed noclip moving player back
+- [x] added announcement button to console page (#403)
+- [x] fix cause of death being always suicide (commit 9434d427)
+- [x] update material ui to v5
+- [x] fix(core): removed ansi color escape from srvCmdBuffer
+- [x] new server log with pagination and filter
+- [x] document new log thing
+- [x] clean this file
+- [x] update dev env to fxs/node16 
+- [x] update packages & test
+- [x] feat: database management page
+- [x] fix logging data on diagnostics page
+- [x] fix dashboard stats not working on iframe mode (closes #438)
+- [x] fix player modal for new server log
+> v4.6.0
+- [x] rolled back fs-extra to v9.1.0
+> v4.6.1
+- [x] fixed text visibility on light theme
+- [x] fixed wrong freeze yourself message
+- [x] allow removal of revoked warns
+- [x] fixed chat suggestions not working
+- [x] spectate and freeze not showing in log
+- [x] improved action logging names + reorder
+- [x] fixed placeholder recipe detection
+- [x] menu: new playerlist
+- [x] properly handle freezing peds in vehicles
+- [x] fix(scripts/spectate): handling for primary routing buckets not being 0
+- [x] fix(deployer): changed zip library to solve errors
+- [x] chore: updated some packages
+> v4.7.0
+- [x] fix(menu/players-page): fix sorting unknown distances higher than known
+- [x] tweak(menu/players-page): reflect players low health with color change
+- [x] fix(scripts/player-list): normalize health to percentage
+- [x] Remove the "NEW" tag from `header.html` and `masterActions.html`
+- [x] Implement new menu auth method
+- [x] Add keybind for opening players page
+- [x] Add keybind for toggling player IDs
+- [x] Fix menu healthbar colors
+- [x] Enable custom locale for menu
+- [x] Reorganize menu buttons.
+- [x] Reorganize all translation keys
+- [x] Migrate warn to use the event + react translation
+- [x] Solve sticky cookie after reauth issue
+- [x] Fix the manage admins perm issue
+- [x] Update packages
+- [x] Test new NUI Auth on ZAP server
+> v4.8.0
 
 ------------------------------
 > NOTE: this was an attempt to get the help from the community around september 2019

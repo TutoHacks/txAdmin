@@ -67,11 +67,27 @@ module.exports = async function FXServerCommands(ctx) {
     //==============================================
     } else if (action == 'admin_broadcast') {
         if (!ensurePermission(ctx, 'players.message')) return false;
-        // TODO: deprecate txaBroadcast, carefull to also show it on the Server Log
-        let cmd = formatCommand('txaBroadcast', ctx.session.auth.username, parameter);
-        ctx.utils.logCommand(cmd);
-        let toResp = await globals.fxRunner.srvCmdBuffer(cmd);
-        return sendAlertOutput(ctx, toResp);
+        const message = (parameter ?? '').trim();
+
+        // Dispatch `txAdmin:events:announcement`
+        const cmdOk = globals.fxRunner.sendEvent('announcement', {
+            message,
+            author: ctx.session.auth.username,
+        });
+        ctx.utils.logAction(`Sending announcement: ${parameter}`);
+
+        // Sending discord announcement
+        const discMessage = message.replace(/\`/g, '\\`').replace(/\n/g, '\n> ');
+        const discMsgTitle = globals.translator.t(
+            'nui_menu.misc.announcement_title',
+            {author: ctx.session.auth.username}
+        );
+        await globals.discordBot.sendAnnouncement(`${discMsgTitle}\n> ${discMessage}`);
+
+        return ctx.send({
+            type: cmdOk ? 'success' : 'danger',
+            message: 'Announcement sent!',
+        });
 
     //==============================================
     } else if (action == 'kick_all') {

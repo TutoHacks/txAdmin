@@ -56,7 +56,7 @@ const DialogBanView: React.FC = () => {
 
       enqueueSnackbar(cleanedMsg, { variant: translateAlertType(resp.type) });
     } catch (e) {
-      enqueueSnackbar(t("nui_menu.common.error"), { variant: "error" });
+      enqueueSnackbar(t("nui_menu.misc.unknown_error"), { variant: "error" });
       console.error(e);
     }
   };
@@ -99,25 +99,25 @@ const DialogBanView: React.FC = () => {
   const customBanLength = [
     {
       value: "hours",
-      label: "Hours",
+      label: t("nui_menu.player_modal.ban.hours"),
     },
     {
       value: "days",
-      label: "Days",
+      label: t("nui_menu.player_modal.ban.days"),
     },
     {
       value: "weeks",
-      label: "Week",
+      label: t("nui_menu.player_modal.ban.weeks"),
     },
     {
       value: "months",
-      label: "Months",
+      label: t("nui_menu.player_modal.ban.months"),
     },
   ];
 
   return (
     <DialogContent>
-      <Typography variant="h6" sx={{mb: 2}}>Ban Player</Typography>
+      <Typography variant="h6" sx={{mb: 2}}>{t("nui_menu.player_modal.ban.title")}</Typography>
       <form onSubmit={handleBan}>
         <TextField
           autoFocus
@@ -186,7 +186,7 @@ const DialogBanView: React.FC = () => {
           sx={{ mt: 2 }}
           onClick={handleBan}
         >
-          Ban
+          {t("nui_menu.player_modal.ban.submit")}
         </Button>
       </form>
     </DialogContent>

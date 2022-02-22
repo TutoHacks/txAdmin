@@ -27,7 +27,7 @@ module.exports = async function MasterActionsAction(ctx) {
 
     //Check permissions
     if (!ctx.utils.checkPermission('master', modulename)) {
-        return ctx.utils.render('basic/generic', {message: 'Only the master account has permission to view/use this page.',});
+        return ctx.utils.render('basic/generic', {message: 'Only the master account has permission to view/use this page.' });
     }
     if (!ctx.txVars.isWebInterface) {
         return ctx.utils.render('basic/generic', {message: 'This functionality cannot be used by the in-game menu, please use the web version of txAdmin.'});
@@ -342,6 +342,8 @@ async function handleCleanDatabase(ctx) {
     let warnsFilter;
     if (warns === 'none') {
         warnsFilter = (x) => false;
+    } else if (warns === 'revoked') {
+        warnsFilter = (x) => x.type === 'warn' && x.revocation.timestamp;
     } else if (warns === '30d') {
         warnsFilter = (x) => x.type === 'warn' && x.timestamp < (currTs - 30 * daySecs);
     } else if (warns === '15d') {

@@ -21,23 +21,19 @@ const escape = (x) => {return x.toString().replace(/"/g, '\uff02');};
 const formatCommand = (cmd, ...params) => {
     return `${cmd} "` + [...params].map(escape).join('" "') + '"';
 };
-const getConvars = (isCmdLine = false) => {
+const getMutableConvars = (isCmdLine = false) => {
     const p = isCmdLine ? '+' : '';
     const controllerConfigs = globals.playerController.config;
     const checkPlayerJoin = (controllerConfigs.onJoinCheckBan || controllerConfigs.onJoinCheckWhitelist);
-    const txAdminInterface = (GlobalData.forceInterface)
-        ? `${GlobalData.forceInterface}:${GlobalData.txAdminPort}`
-        : `127.0.0.1:${GlobalData.txAdminPort}`;
 
     return [
         //type, name, value
-        [`${p}sets`, 'txAdmin-version', GlobalData.txAdminVersion],
-        [`${p}setr`, 'txAdmin-locale', globals.translator.language || 'en'],
+        [`${p}setr`, 'txAdmin-locale', globals.translator.language ?? 'en'],
+        [`${p}set`, 'txAdmin-localeFile', globals.translator.customLocalePath ?? 'false'],
         [`${p}setr`, 'txAdmin-verbose', GlobalData.verbose],
-        [`${p}set`, 'txAdmin-apiHost', txAdminInterface],
-        [`${p}set`, 'txAdmin-apiToken', globals.webServer.intercomToken],
         [`${p}set`, 'txAdmin-checkPlayerJoin', checkPlayerJoin],
-        [`${p}set`, 'txAdminServerMode', 'true'], //Can't change this one due to fxserver code compatibility
+        [`${p}set`, 'txAdmin-menuAlignRight', globals.config.menuAlignRight],
+        [`${p}set`, 'txAdmin-menuPageKey', globals.config.menuPageKey],
     ];
 };
 
@@ -54,17 +50,6 @@ module.exports = class FXRunner {
         this.fxServerHost = null;
         this.currentMutex = null;
         this.outputHandler = new OutputHandler();
-
-        //The setTimeout is not strictly necessary, but it's nice to have other errors in the top before fxserver starts.
-        if (config.autostart && this.config.serverDataPath !== null && this.config.cfgPath !== null) {
-            setTimeout(() => {
-                if (globals.adminVault && globals.adminVault.admins) {
-                    this.spawnServer(true);
-                } else {
-                    logWarn('The server will not auto start because there are no admins configured.');
-                }
-            }, config.autostartDelay * 1000);
-        }
     }
 
 
@@ -75,6 +60,25 @@ module.exports = class FXRunner {
     refreshConfig() {
         this.config = globals.configVault.getScoped('fxRunner');
     }//Final refreshConfig()
+
+
+    //================================================================
+    /**
+     * Receives the signal that all the start banner was already printed and other modules loaded
+     */
+    signalStartReady() {
+        if(!this.config.autostart) return;
+
+        if(this.config.serverDataPath === null || this.config.cfgPath === null){
+            return logWarn('Please open txAdmin on the browser to configure your server.');
+        }
+
+        if(!globals.adminVault || !globals.adminVault.admins){
+            return logWarn('The server will not auto start because there are no admins configured.');
+        }
+
+        this.spawnServer(true);
+    }//Final signalStartReady()
 
 
     //================================================================
@@ -91,12 +95,19 @@ module.exports = class FXRunner {
         //Generate new mutex
         this.currentMutex = genMutex();
 
-        // Prepare default args
+        // Prepare default args (these convars can't change without restart)
+        const txAdminInterface = (GlobalData.forceInterface)
+            ? `${GlobalData.forceInterface}:${GlobalData.txAdminPort}`
+            : `127.0.0.1:${GlobalData.txAdminPort}`;
         const cmdArgs = [
-            getConvars(true),
+            getMutableConvars(true),
             extraArgs,
             '+set', 'onesync', this.config.onesync,
-            '+set', 'txAdmin-pipeToken', globals.webServer.fxWebPipeToken,
+            '+sets', 'txAdmin-version', GlobalData.txAdminVersion,
+            '+setr', 'txAdmin-menuEnabled', globals.config.menuEnabled,
+            '+set', 'txAdmin-luaComHost', txAdminInterface,
+            '+set', 'txAdmin-luaComToken', globals.webServer.luaComToken,
+            '+set', 'txAdminServerMode', 'true', //Can't change this one due to fxserver code compatibility
             '+exec', this.config.cfgPath,
         ].flat(2);
 
@@ -133,7 +144,7 @@ module.exports = class FXRunner {
      */
     spawnServer(announce) {
         //Setup variables
-        globals.webServer.resetTokens();
+        globals.webServer.resetToken();
         this.setupVariables();
         if (GlobalData.verbose) {
             log('Spawn Variables: ' + this.spawnVariables.args.join(' '));
@@ -356,7 +367,7 @@ module.exports = class FXRunner {
     resetConvars() {
         log('Refreshing fxserver convars.');
         try {
-            const convarList = getConvars(false);
+            const convarList = getMutableConvars(false);
             if (GlobalData.verbose) dir(convarList);
             convarList.forEach(([type, name, value]) => {
                 this.srvCmd(formatCommand(type, name, value));
@@ -406,9 +417,10 @@ module.exports = class FXRunner {
     srvCmd(command) {
         if (typeof command !== 'string') throw new Error('Expected String!');
         if (this.fxChild === null) return false;
+        const sanitized = command.replaceAll(/\n/g, ' ');
         try {
-            const success = this.fxChild.stdin.write(command + '\n');
-            globals.logger.fxserver.writeMarker('command', command);
+            const success = this.fxChild.stdin.write(sanitized + '\n');
+            globals.logger.fxserver.writeMarker('command', sanitized);
             return success;
         } catch (error) {
             if (GlobalData.verbose) {

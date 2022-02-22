@@ -34,5 +34,257 @@
         "title": "WARNING",
         "warned_by": "Avvisato da:",
         "instruction": "Tieni premuto [SPACE] per 10 secondi per rimuovere questo messaggio."
+    },
+    "nui_menu": {
+        "misc": {
+            "help_message": "txAdmin Menu attivato, scrivi /tx per aprirlo.\nPuoi bindare un tasto in [Game Settings > Key Bindings > FiveM > Menu: Open Main Page].",
+            "menu_not_allowed": "I tuoi identifiers non corrispondono ad un admin registrato nel txAdmin.\nSe sei registrato al txAdmin, vai nella sezione Admin Manager e controlla che siano presenti i tuoi identifiers.",
+            "no_perms": "Non hai questo permesso.",
+            "unknown_error": "Si è verificato un errore sconosciuto.",
+            "not_enabled": "Il menu txAdmin non è attivo! Puoi attivarlo dalle impostazioni del txAdmin.",
+            "announcement_title": "Annuncio da %{author}:",
+            "dialog_empty_input": "Non puoi dare un input vuoto."
+        },
+        "frozen": {
+            "froze_player": "Hai freezato il player!",
+            "unfroze_player": "Hai unfreezato il player!",
+            "was_frozen": "Sei stato freezato da uno staffer!"
+        },
+        "common": {
+            "cancel": "Cancella",
+            "submit": "Conferma",
+            "error": "Si è verificato un'errore",
+            "copied": "Copiato negli appunti."
+        },
+        "page_main": {
+            "tooltips": {
+                "tooltip_1": "Usa %{key} per cambiare pagina e le freccette per navigare nel menu",
+                "tooltip_2": "Alcune voci del menu hanno opzioni secondarie che possono essere selezionate utilizzando i tasti freccia sinistra e destra"
+            },
+            "player_mode": {
+                "title": "Modalità",
+                "noclip": {
+                    "title": "NoClip",
+                    "label": "Vola",
+                    "success": "NoClip attivo"
+                },
+                "godmode": {
+                    "title": "God",
+                    "label": "Invincibilità",
+                    "success": "God Mode attiva"
+                },
+                "normal": {
+                    "title": "Normale",
+                    "label": "Nodalità normale",
+                    "success": "Tornato alla modalità normale."
+                }
+            },
+            "teleport": {
+                "title": "Teletrasporto",
+                "generic_success": "Mandato nel wormhole!",
+                "waypoint": {
+                    "title": "Waypoint",
+                    "label": "Vai al waypoint impostato",
+                    "error": "Non hai un waypoint impostato."
+                },
+                "coords": {
+                    "title": "Coordinate",
+                    "label": "Vai alle coordinate specificate",
+                    "dialog_title": "Teletrasporto",
+                    "dialog_desc": "Fornisci delle coordinate in un formato x, y, z per attraversare il wormhole.",
+                    "dialog_error": "Coordinate errate. Devono essere nel formato: 111, 222, 33"
+                },
+                "back": {
+                    "title": "Indietro",
+                    "label": "Torna alla tua ultima posizione",
+                    "error": "Non hai un'ultima posizione in cui andare!"
+                },
+                "copy": {
+                    "title": "Copia coordinate",
+                    "label": "Copia le coordinate negli appunti."
+                }
+            },
+            "vehicle": {
+                "title": "Veicolo",
+                "onesync_error": "Questa opzione richiede che OneSync sia attivo",
+                "not_in_veh_error": "Non sei in un veicolo!",
+                "spawn": {
+                    "title": "Spawna",
+                    "label": "Spawna un veicolo dal nmome",
+                    "dialog_title": "Spawna veicolo",
+                    "dialog_desc": "Inserisci il nome del modello del veicolo che vuoi spawnare.",
+                    "dialog_success": "Veicolo spawnato!",
+                    "dialog_error": "Il modello '%{modelName}' non esiste!",
+                    "dialog_info": "Provando a spawnare %{modelName}."
+                },
+                "fix": {
+                    "title": "Ripara",
+                    "label": "Ripara il veicolo",
+                    "success": "Veicolo riparato!"
+                },
+                "delete": {
+                    "title": "Elimina",
+                    "label": "Elimina il veicolo",
+                    "success": "Veicolo eliminato!"
+                }
+            },
+            "heal": {
+                "title": "Cura",
+                "myself": {
+                    "title": "Te Stesso",
+                    "label": "Cura te stesso",
+                    "success_0": "Tutti curati!",
+                    "success_1": "Dovresti stare bene ora!",
+                    "success_2": "Curato al massimo!",
+                    "success_3": "Ouchies risolto!"
+                },
+                "everyone": {
+                    "title": "Tutti",
+                    "label": "Curerà e Rianimerà tutti i player",
+                    "success": "Curati e rianimati tutti i player."
+                }
+            },
+            "announcement": {
+                "title": "Manda Annuncio",
+                "label": "Manda un annuncio a tutti i player online.",
+                "dialog_desc": "Enter the message you want to broadcast to all players.",
+                "dialog_placeholder": "Il tuo annuncio...",
+                "dialog_success": "Inviando l'annuncio."
+            },
+            "clear_area": {
+                "title": "Resetta l'area",
+                "label": "Reset a specified world area to its default state",
+                "dialog_desc": "Inserisci il raggio in cui desideri reimpostare le entità (0-300). Questo non cancellerà le entità generate sul lato server",
+                "dialog_success": "Pulendo l'area in un raggio di %{radius}m",
+                "dialog_error": "Inserimento raggio non valido. Riprova."
+            },
+            "player_ids": {
+                "title": "Toggle ID dei Player",
+                "label": "Toggle showing player IDs (and other info) above the head of all nearby players",
+                "alert_show": "Mostra gli ID dei player vicini.",
+                "alert_hide": "Nascondi gli ID dei player vicini."
+            }
+        },
+        "page_players": {
+            "misc": {
+                "online_players": "Giocatori Online",
+                "players": "Giocatori",
+                "search": "Cerca",
+                "zero_players": "Nessun giocatore trovato"
+            },
+            "sort": {
+                "label": "Ordina per",
+                "distance": "Distanza",
+                "id": "ID",
+                "joined_first": "Entrato Prima",
+                "joined_last": "Entrato Dopo",
+                "closest": "Più Vicino",
+                "farthest": "Più Lontano"
+            },
+            "card": {
+                "health": "%{percentHealth}% vita"
+            }
+        },
+        "player_modal": {
+            "misc": {
+                "error": "Si è verificato un errore durante il recupero dei dettagli di questo utente. L'errore è mostrato sotto:",
+                "target_not_found": "Impossibile trovare un giocatore online con ID o nome utente di %{target}"
+            },
+            "tabs": {
+                "actions": "Azioni",
+                "info": "Info",
+                "ids": "IDs",
+                "history": "Cronologia",
+                "ban": "Ban"
+            },
+            "actions": {
+                "title": "Azioni Player",
+                "command_sent": "Comando inviato!",
+                "moderation": {
+                    "title": "Moderazione",
+                    "options": {
+                        "dm": "DM",
+                        "warn": "Warn",
+                        "kick": "Kick",
+                        "set_admin": "Dai Admin"
+                    },
+                    "dm_dialog": {
+                        "title": "Messaggio Diretto",
+                        "description": "Per che motivo stai inviando un messaggio diretto?",
+                        "placeholder": "Motivo...",
+                        "success": "Il tuo messaggio è stato inviato!"
+                    },
+                    "warn_dialog": {
+                        "title": "Warn",
+                        "description": "Per che motivo stai warnando questo giocatore?",
+                        "placeholder": "Motivo...",
+                        "success": "Il player è stato warnato!"
+                    },
+                    "kick_dialog": {
+                        "title": "Kick",
+                        "description": "Per che motivo stai kickando questo giocatore?",
+                        "placeholder": "Motivo...",
+                        "success": "Il player è stato kickato!"
+                    }
+                },
+                "interaction": {
+                    "title": "Interazioni",
+                    "options": {
+                        "heal": "Cura",
+                        "go_to": "Vai da",
+                        "bring": "Porta da te",
+                        "spectate": "Specta",
+                        "toggle_freeze": "Toggle Freeze"
+                    },
+                    "notifications": {
+                        "heal_player": "Curando il Giocatore",
+                        "tp_player": "Teletrasportandosi dal Giocatore",
+                        "bring_player": "Bringando il Giocatore",
+                        "spectate_failed": "Impossibile risolvere il bersaglio! Uscendo dallo Spectate.",
+                        "spectate_yourself": "Non puoi spectarti da solo.",
+                        "freeze_yourself": "Non puoi freezarti da solo."
+                    }
+                },
+                "troll": {
+                    "title": "Troll",
+                    "options": {
+                        "drunk": "Diventa Ubriaco",
+                        "fire": "Dai Fuoco",
+                        "wild_attack": "Attacco di Scimmie"
+                    }
+                }
+            },
+            "info": {
+                "title": "Info sul Giocatore",
+                "session_time": "Tempo della Sesione",
+                "play_time": "Tempo di Gioco",
+                "joined": "Entrato",
+                "notes_placeholder": "Note riguardo al Giocatore"
+            },
+            "history": {
+                "title": "Cronologia",
+                "action_types": {
+                    "warn": "WARNATO",
+                    "warn_revoked": "REVOCATO il WARN per",
+                    "ban": "BANNATO",
+                    "ban_revoked": "REVOCATO il BAN per",
+                    "whitelist": "WHITELIST",
+                    "whitelist_revoked": "REVOCATA la WHITELIS per"
+                }
+            },
+            "ban": {
+                "title": "Banna il Player",
+                "reason_placeholder": "Motivo",
+                "duration_placeholder": "Durata",
+                "hours": "ore",
+                "days": "giorni",
+                "weeks": "settimane",
+                "months": "mesi",
+                "permanent": "Permanentemente",
+                "custom": "Personalizzato",
+                "helper_text": "Seleziona una durata",
+                "submit": "Apply ban"
+            }
+        }
     }
 }

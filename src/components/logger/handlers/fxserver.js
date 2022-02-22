@@ -33,7 +33,7 @@ module.exports = class FXServerLogger extends LoggerBase {
             intervalBoundary: true,
             initialRotation: true,
             history: 'fxserver.history',
-            // compress: 'gzip', //don't forget to do `mv filename filename.gz`
+            // compress: 'gzip',
             interval: '1d',
             maxFiles: 7,
             maxSize: '5G',
@@ -77,7 +77,9 @@ module.exports = class FXServerLogger extends LoggerBase {
         if (type === 'starting') {
             const msg = separator('FXServer Starting');
             this.lrStream.write(`\n${msg}\n`);
-            process.stdout.write(`\n${chalk.bgBlue(msg)}\n`);
+            if (!globals.fxRunner.config.quiet) {
+                process.stdout.write(`\n${chalk.bgBlue(msg)}\n`);
+            }
             const coloredMarkData = `\n\n${markLines(msg, 'info')}\n`;
             globals.webServer.webSocket.buffer('liveconsole', coloredMarkData);
             this.appendRecent(coloredMarkData);

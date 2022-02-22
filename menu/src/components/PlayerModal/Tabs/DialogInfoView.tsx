@@ -44,7 +44,7 @@ const DialogInfoView: React.FC = () => {
       forceRefresh((val) => val + 1);
       enqueueSnackbar(resp.message, { variant: translateAlertType(resp.type) });
     } catch (e) {
-      enqueueSnackbar(t("nui_menu.common.error"), { variant: "error" });
+      enqueueSnackbar(t("nui_menu.misc.unknown_error"), { variant: "error" });
       console.error(e);
     }
   };
@@ -82,7 +82,7 @@ const DialogInfoView: React.FC = () => {
             autoFocus
             margin="dense"
             id="name"
-            label="Notes about this player"
+            label={t("nui_menu.player_modal.info.notes_placeholder")}
             type="text"
             value={note}
             onChange={(e) => setNote(e.currentTarget.value)}

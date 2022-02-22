@@ -1,20 +1,28 @@
 import React, { memo } from "react";
-import { Box, IconButton, Paper, Theme, Tooltip, Typography } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  Box,
+  IconButton,
+  Paper,
+  styled,
+  Theme,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
 import {
   DirectionsBoat,
   DirectionsWalk,
   DriveEta,
   LiveHelp,
   MoreVert,
-  BikeScooter,
-  Flight
+  TwoWheeler,
+  Flight,
 } from "@mui/icons-material";
 import { usePlayerModalContext } from "../../provider/PlayerModalProvider";
-import { PlayerData, VehicleStatus } from "../../state/players.state";
 import { useSetAssociatedPlayer } from "../../state/playerDetails.state";
 import { formatDistance } from "../../utils/miscUtils";
-import { useTranslate } from 'react-polyglot';
+import { useTranslate } from "react-polyglot";
+import { PlayerData, VehicleStatus } from "../../hooks/usePlayerListListener";
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -40,18 +48,48 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+const determineHealthBGColor = (val: number) => {
+  if (val <= 20) return "#4a151b";
+  else if (val <= 60) return "#624d18";
+  else return "#097052";
+};
+
+const determineHealthColor = (val: number, theme: Theme) => {
+  if (val <= 20) return theme.palette.error.light;
+  else if (val <= 60) return theme.palette.warning.light;
+  else return theme.palette.primary.light;
+};
+
+const HealthBarBackground = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "healthVal",
+})<{ healthVal: number }>(({ healthVal }) => ({
+  background: determineHealthBGColor(healthVal),
+  height: 5,
+  borderRadius: 10,
+  overflow: "hidden",
+}));
+
+const HealthBar = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "healthVal",
+})<{ healthVal: number }>(({ theme, healthVal }) => ({
+  background: determineHealthColor(healthVal, theme),
+  height: 5,
+  borderRadius: 10,
+  overflow: "hidden",
+}));
+
 const PlayerCard: React.FC<{ playerData: PlayerData }> = ({ playerData }) => {
   const classes = useStyles();
   const { setModalOpen } = usePlayerModalContext();
   const setAssociatedPlayer = useSetAssociatedPlayer();
-  const t = useTranslate()
+  const t = useTranslate();
 
   const statusIcon: { [K in VehicleStatus]: JSX.Element } = {
     unknown: <LiveHelp color="inherit" />,
     walking: <DirectionsWalk color="inherit" />,
     driving: <DriveEta color="inherit" />,
     boating: <DirectionsBoat color="inherit" />,
-    biking: <BikeScooter color="inherit" />,
+    biking: <TwoWheeler color="inherit" />,
     flying: <Flight color="inherit" />,
   };
 
@@ -61,8 +99,7 @@ const PlayerCard: React.FC<{ playerData: PlayerData }> = ({ playerData }) => {
   };
 
   const upperCaseStatus =
-    playerData.vehicleStatus.charAt(0).toUpperCase() +
-    playerData.vehicleStatus.slice(1);
+    playerData.vType.charAt(0).toUpperCase() + playerData.vType.slice(1);
 
   return (
     <Box p={2}>
@@ -78,7 +115,7 @@ const PlayerCard: React.FC<{ playerData: PlayerData }> = ({ playerData }) => {
               }}
             >
               <span className={classes.icon}>
-                {statusIcon[playerData.vehicleStatus]}
+                {statusIcon[playerData.vType]}
               </span>
             </Tooltip>
             <Typography
@@ -92,7 +129,7 @@ const PlayerCard: React.FC<{ playerData: PlayerData }> = ({ playerData }) => {
               |
             </Typography>
             <Tooltip
-              title={playerData.username}
+              title={playerData.name}
               placement="top"
               arrow
               classes={{
@@ -105,7 +142,7 @@ const PlayerCard: React.FC<{ playerData: PlayerData }> = ({ playerData }) => {
                 variant="subtitle1"
                 color="textPrimary"
               >
-                {playerData.username}
+                {playerData.admin && '🛡️'} {playerData.name}
               </Typography>
             </Tooltip>
             <Typography
@@ -114,28 +151,30 @@ const PlayerCard: React.FC<{ playerData: PlayerData }> = ({ playerData }) => {
               variant="subtitle1"
               color="textSecondary"
             >
-              {playerData.distance < 0
-                ? `?? m`
-                : formatDistance(playerData.distance)}
+              {playerData.dist < 0 ? `?? m` : formatDistance(playerData.dist)}
             </Typography>
           </Box>
-          <IconButton onClick={handlePlayerClick} size="large">{<MoreVert />}</IconButton>
+          <IconButton onClick={handlePlayerClick} size="large">
+            {<MoreVert />}
+          </IconButton>
         </Box>
         <div>
           <Tooltip
-            title={t('nui_menu.page_players.card.health', { percentHealth: playerData.health})}
+            title={t("nui_menu.page_players.card.health", {
+              percentHealth: playerData.health,
+            })}
             placement="bottom"
             arrow
             classes={{
               tooltip: classes.tooltipOverride,
             }}
           >
-            <div className={classes.barBackground}>
-              <Box
-                className={classes.barInner}
+            <HealthBarBackground healthVal={playerData.health}>
+              <HealthBar
                 width={`${playerData.health}%`}
+                healthVal={playerData.health}
               />
-            </div>
+            </HealthBarBackground>
           </Tooltip>
         </div>
       </Paper>

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Theme } from "@mui/material";
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import { PlayerPageHeader } from "./PlayerPageHeader";
 import { useFilteredSortedPlayers } from "../../state/players.state";
 import { PlayersListEmpty } from "./PlayersListEmpty";
 import { PlayersListGrid } from "./PlayersListGrid";
+import { usePlayerListListener } from "../../hooks/usePlayerListListener";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -40,6 +41,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const PlayersPage: React.FC<{ visible: boolean }> = ({ visible }) => {
   const classes = useStyles();
   const players = useFilteredSortedPlayers();
+
+  usePlayerListListener();
 
   return (
     <Box

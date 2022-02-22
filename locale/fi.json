@@ -34,5 +34,257 @@
         "title": "VAROITUS",
         "warned_by": "Sinua varoitti:",
         "instruction": "Pidä välilyöntiä pohjassa 10 sekuntia jatkaaksesi."
+    },
+    "nui_menu": {
+        "misc": {
+            "help_message": "txAdmin Menu päällä. Kirjoita /tx avataksesi.\nVoit myös asettaa menulle oman näppäimen: [Game Settings > Key Bindings > FiveM > Menu: Open Main Page].",
+            "menu_not_allowed": "Your identifiers do not match any admin registered on txAdmin.\nIf you are registered on txAdmin, go to Admin Manager and make sure your identifiers are saved.",
+            "no_perms": "Sinulla ei ole oikeuksia tähän.",
+            "unknown_error": "Tuntematon virhe",
+            "not_enabled": "txAdmin Menu ei ole käytössä! Voit ottaa sen käyttöön txAdminin asetuksista.",
+            "announcement_title": "Palvelinilmoitus henkilöltä %{author}:",
+            "dialog_empty_input": "Tekstikenttä ei voi olla tyhjä."
+        },
+        "frozen": {
+            "froze_player": "Pelaaja jäädytety!",
+            "unfroze_player": "Pelaaja vapautettu!",
+            "was_frozen": "Sinut on jäädytetty ylläpitäjän toimesta!"
+        },
+        "common": {
+            "cancel": "Takaisin",
+            "submit": "Lähetä",
+            "error": "Virhe",
+            "copied": "Kopioitu leikepöydälle."
+        },
+        "page_main": {
+            "tooltips": {
+                "tooltip_1": "Käytä %{key} näppäintä vaihtaaksesi välilehtiä ja nuolinäppäimiä navikoidaksesi listaa",
+                "tooltip_2": "Osalla listan osioista on lisäosioita, joita voit selata käyttämällä vasenta ja oikeaa nuolinäppäintä"
+            },
+            "player_mode": {
+                "title": "Pelaajan tila",
+                "noclip": {
+                    "title": "NoClip",
+                    "label": "Lennä ympäriinsä",
+                    "success": "NoClip päällä"
+                },
+                "godmode": {
+                    "title": "God",
+                    "label": "Kuolematon",
+                    "success": "God Mode päällä"
+                },
+                "normal": {
+                    "title": "Normaali",
+                    "label": "Palauta pelaajan tila normaaliksi",
+                    "success": "Palautettu takaisin normaaliin tilaan"
+                }
+            },
+            "teleport": {
+                "title": "Teleport",
+                "generic_success": "Sent you into the wormhole!",
+                "waypoint": {
+                    "title": "Waypoint",
+                    "label": "Siirry valittuun pisteeseen",
+                    "error": "Et ole asettanut haluttua määränpäätä."
+                },
+                "coords": {
+                    "title": "Koordinaatit",
+                    "label": "Siirry syötettyihin koordinaatteihin",
+                    "dialog_title": "Teleport",
+                    "dialog_desc": "Syötä koordinaatit muodossa: x, y, z",
+                    "dialog_error": "Virheellinen koordinaatti. Koordinaattien pitää olla muotoa: 111, 222, 33"
+                },
+                "back": {
+                    "title": "Takaisin",
+                    "label": "Siirry viimeisimpään paikkaan",
+                    "error": "You don't have a last location to go back to!"
+                },
+                "copy": {
+                    "title": "Kopioi koordinaatit",
+                    "label": "Kopioi koordinaatit leikepöydälle."
+                }
+            },
+            "vehicle": {
+                "title": "Ajoneuvo",
+                "onesync_error": "Tämä asetus vaatii OneSync:in päälle",
+                "not_in_veh_error": "Et ole ajoneuvossa!",
+                "spawn": {
+                    "title": "Luo",
+                    "label": "Luo ajoneuvo nimellä",
+                    "dialog_title": "Luo ajoneuvo",
+                    "dialog_desc": "Aseta ajoneuvon nimi, jonka haluat luoda",
+                    "dialog_success": "Ajoneuvo luotu!",
+                    "dialog_error": "Ajoneuvo '%{modelName}' ei ole olemassa!",
+                    "dialog_info": "Trying to spawn %{modelName}."
+                },
+                "fix": {
+                    "title": "Korjaa",
+                    "label": "Korjaa tämänhetkinen ajoneuvo",
+                    "success": "Ajoneuvo korjattu!"
+                },
+                "delete": {
+                    "title": "Poista",
+                    "label": "Poista tämänhetkinen ajoneuvo",
+                    "success": "Ajoneuvo poistettu!"
+                }
+            },
+            "heal": {
+                "title": "Elvytä",
+                "myself": {
+                    "title": "Minut",
+                    "label": "Elvyttää sinut",
+                    "success_0": "Elvytetty!",
+                    "success_1": "Kaikki on taas hyvin!",
+                    "success_2": "Ei kuolleena ollutkaan niin kivaa!",
+                    "success_3": "Elossa ollaan taas!"
+                },
+                "everyone": {
+                    "title": "Jokainen",
+                    "label": "Elvyttää jokaisen pelaajan",
+                    "success": "Kaikki pelaajat elvytetty."
+                }
+            },
+            "announcement": {
+                "title": "Lähetä ilmoitus",
+                "label": "Lähetä ilmoitus kaikille pelaajille.",
+                "dialog_desc": "Syötä viesti, jonka haluat pelaajille lähetettävän.",
+                "dialog_placeholder": "Ilmoituksesi....",
+                "dialog_success": "Lähetetään ilmoitusta."
+            },
+            "clear_area": {
+                "title": "Tyhjennä alue",
+                "label": "Tyhjennä valittu alue",
+                "dialog_desc": "Aseta haluttu etäisyys väliltä (0-300). Tämä toiminto ei poista palvelimen puolelta (server side) luotuja asioita.",
+                "dialog_success": "Tyjennetään alueelta: %{radius}m",
+                "dialog_error": "Virheellinen alue, yritä uudelleen."
+            },
+            "player_ids": {
+                "title": "Näytä pelaajien ID:t",
+                "label": "Näytä lähellä olevien pelaajien ID:t",
+                "alert_show": "Showing nearby player NetIDs.",
+                "alert_hide": "Hiding nearby player NetIDs."
+            }
+        },
+        "page_players": {
+            "misc": {
+                "online_players": "Paikalla olevat pelaajat",
+                "players": "pelaaja(a)",
+                "search": "Hae",
+                "zero_players": "Pelaajia ei löytynyt"
+            },
+            "sort": {
+                "label": "Järjestä",
+                "distance": "Etäisyys",
+                "id": "ID",
+                "joined_first": "Liittynyt ensimmäisenä",
+                "joined_last": "Liittynyt viimeisenä",
+                "closest": "Lähimpänä",
+                "farthest": "Kauimpana"
+            },
+            "card": {
+                "health": "%{percentHealth}% health"
+            }
+        },
+        "player_modal": {
+            "misc": {
+                "error": "An error occurred fetching this users details. The error is shown below:",
+                "target_not_found": "Was unable to find an online player with ID or an username of %{target}"
+            },
+            "tabs": {
+                "actions": "Toiminnot",
+                "info": "Info",
+                "ids": "ID:t",
+                "history": "Historia",
+                "ban": "Porttikielto"
+            },
+            "actions": {
+                "title": "Pelaajan toiminnot",
+                "command_sent": "Toiminto suoritettu!",
+                "moderation": {
+                    "title": "Hallinnointi",
+                    "options": {
+                        "dm": "Yksityisviesti",
+                        "warn": "Varoita",
+                        "kick": "Potki",
+                        "set_admin": "Anna ylläpito-oikeudet"
+                    },
+                    "dm_dialog": {
+                        "title": "Yksityisviesti",
+                        "description": "Mitä haluat pelaajalle lähettää?",
+                        "placeholder": "Viesti...",
+                        "success": "Yksityisviesti lähetetty!"
+                    },
+                    "warn_dialog": {
+                        "title": "Varoita",
+                        "description": "Mistä haluat pelaajaa varoittaa?",
+                        "placeholder": "Syy...",
+                        "success": "Pelaajaa varoitettu!"
+                    },
+                    "kick_dialog": {
+                        "title": "Potki",
+                        "description": "Mistä syystä haluat pelaajan potkia?",
+                        "placeholder": "Syy...",
+                        "success": "Pelaaja potkittu palvelimelta!"
+                    }
+                },
+                "interaction": {
+                    "title": "Toiminnot",
+                    "options": {
+                        "heal": "Elvytä",
+                        "go_to": "Mene pelaajan luokse",
+                        "bring": "Tuo pelaaja luoksesi",
+                        "spectate": "Katso pelaajaa",
+                        "toggle_freeze": "Jäädytä"
+                    },
+                    "notifications": {
+                        "heal_player": "Elvytetään pelaaja",
+                        "tp_player": "Mennään pelaajan luokse",
+                        "bring_player": "Tuodaan pelaaja",
+                        "spectate_failed": "Failed to resolve the target! Exiting spectate.",
+                        "spectate_yourself": "Et voi katsoa itseäsi.",
+                        "freeze_yourself": "Et voi jäädyttää itseäsi."
+                    }
+                },
+                "troll": {
+                    "title": "Troll",
+                    "options": {
+                        "drunk": "Make Drunk",
+                        "fire": "Set Fire",
+                        "wild_attack": "Wild attack"
+                    }
+                }
+            },
+            "info": {
+                "title": "Player info",
+                "session_time": "Session Time",
+                "play_time": "Play time",
+                "joined": "Liittynyt",
+                "notes_placeholder": "Muistiinpanot"
+            },
+            "history": {
+                "title": "Historia",
+                "action_types": {
+                    "warn": "VALOITTI",
+                    "warn_revoked": "REVOKED the WARN for",
+                    "ban": "ANTOI PORTTIKIELLON",
+                    "ban_revoked": "REVOKED the BAN for",
+                    "whitelist": "WHITELIST",
+                    "whitelist_revoked": "REVOKED the WHITELIST for"
+                }
+            },
+            "ban": {
+                "title": "Aseta pelaaja porttikieltoon",
+                "reason_placeholder": "Syy",
+                "duration_placeholder": "Kesto",
+                "hours": "tunti(a)",
+                "days": "päivä(ä)",
+                "weeks": "viikko(a)",
+                "months": "kuukautta",
+                "permanent": "Ikuinen",
+                "custom": "Custom",
+                "helper_text": "Aseta porttikiellon kesto",
+                "submit": "Aseta porttikielto"
+            }
+        }
     }
 }

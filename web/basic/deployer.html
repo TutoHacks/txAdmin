@@ -120,7 +120,7 @@
                                             autocomplete="off" placeholder="cfxk_xxxxxxxxxxxxxxxxxxxx_xxxxx" 
                                             value="{{it.defaults.license}}" required autofocus>
                                         <span class="form-text text-muted">
-                                            The license key for your server obtained in <a href="https://keymaster.fivem.net/" target="_blank" rel="noopener noreferrer">Keymaster</a>.
+                                            The license key for your server can be obtained in <a href="https://keymaster.fivem.net/" target="_blank" rel="noopener noreferrer">Keymaster</a>.
                                         </span>
                                     </div>
                                 </div>
@@ -321,10 +321,9 @@
 
     </div>
     <!-- CoreUI and necessary plugins-->
-    <!-- <script src="js/jquery.min.js"></script> -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="js/coreui.bundle.min.js"></script>
     <script src="js/bootstrap-notify.min.js"></script>
     <script src="js/txadmin/base.js"></script>
@@ -340,7 +339,6 @@
     <script>
         //============================================== CodeMirror & Page Setup
         const currentStep = '{{it.step}}';
-        const isPlaceholderRecipe = ('{{it.isPlaceholderRecipe}}' === 'true');
         const codeMirrorTarget = document.getElementById("codeMirrorTarget");
 
         window.onload = function () {
@@ -359,12 +357,12 @@
         //============================================== Step1 action
         function step1Action(){
             const editor = window.CMInstance;
-            if(isPlaceholderRecipe && codeMirrorTarget.value == editor.getValue()){
-                return $.notify({ message: `If you are not trying to write a recipe, click on the cancel button below to return to the setup page, where you can select a recommended template.` }, { type: 'warning' });
+            if(editor.getValue().includes('This is just a placeholder')){
+                return $.notify({ message: `If you are not trying to write a recipe, click on the cancel button below to return to the setup page, where you can select a recommended template. Otherwise, jut remove the placeholder warning comment.` }, { type: 'warning' });
             }
             editor.setValue(editor.getValue().replace(/\t/g, ' '.repeat(4)));
             const recipe = editor.getValue();
-            if(recipe.length < 128){
+            if(recipe.length < 256){
                 return $.notify({ message: `Your Recipe file is too small, there is a good chance you deleted something you shouldn't.` }, { type: 'warning' });
             }
             const notify = $.notify({ message: '<p class="text-center">Saving...</p>' }, {});

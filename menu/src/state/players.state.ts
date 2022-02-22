@@ -5,28 +5,8 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";
+import { VehicleStatus, PlayerData } from "../hooks/usePlayerListListener";
 import { debugData } from "../utils/debugData";
-
-export enum VehicleStatus {
-  Unknown = "unknown",
-  Walking = "walking",
-  Driving = "driving",
-  Flying = "flying", //planes or heli
-  Boat = "boating",
-  Biking = "biking",
-}
-
-export type PlayerData = Required<PlayerDataPartial> & { id: number };
-export type PlayerDataSetPartial = { [serverID: string]: PlayerDataPartial };
-
-export interface PlayerDataPartial {
-  id: number;
-  vehicleStatus: VehicleStatus;
-  distance: number;
-  health?: number;
-  username?: string;
-  license?: string;
-}
 
 export enum PlayerDataSort {
   IdJoinedFirst = "idJoinedFirst",
@@ -55,21 +35,24 @@ const playersState = {
 
       const playerStates: PlayerData[] = filteredValueInput
         ? unfilteredPlayerStates.filter(
-          (player) =>
-            player.username.toLowerCase().includes(formattedInput) ||
-            player.id.toString().includes(formattedInput)
-        )
+            (player) =>
+              player.name.toLowerCase().includes(formattedInput) ||
+              player.id.toString().includes(formattedInput)
+          )
         : unfilteredPlayerStates;
 
       switch (sortType) {
         case PlayerDataSort.DistanceClosest:
-          return [...playerStates].sort((a, b) =>
-            a.distance > b.distance ? 1 : -1
-          );
+          // Since our distance can come back as -1 when unknown, we need to explicitly
+          // move to the end of the sorted array.
+          return [...playerStates].sort((a, b) => {
+            if (b.dist < 0) return -1;
+            if (a.dist < 0) return 1;
+
+            return a.dist > b.dist ? 1 : -1;
+          });
         case PlayerDataSort.DistanceFarthest:
-          return [...playerStates].sort((a, b) =>
-            a.distance < b.distance ? 1 : -1
-          );
+          return [...playerStates].sort((a, b) => (a.dist < b.dist ? 1 : -1));
         case PlayerDataSort.IdJoinedFirst:
           return [...playerStates].sort((a, b) => (a.id > b.id ? 1 : -1));
         case PlayerDataSort.IdJoinedLast:
@@ -119,135 +102,135 @@ export const useFilteredSortedPlayers = (): PlayerData[] =>
 debugData<PlayerData[]>(
   [
     {
-      action: "setPlayerState",
+      action: "setPlayerList",
       data: [
         {
-          vehicleStatus: VehicleStatus.Walking,
-          username: "Chip",
+          vType: VehicleStatus.Walking,
+          name: "Chip",
           id: 1,
-          distance: 500,
+          dist: 0,
           health: 80,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Driving,
-          username: "Taso",
+          vType: VehicleStatus.Driving,
+          name: "Taso",
           id: 2,
-          distance: 500,
+          dist: 20,
           health: 50,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: true,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Tabarra",
+          vType: VehicleStatus.Boat,
+          name: "Tabarra",
           id: 3,
-          distance: 500,
+          dist: 700,
           health: 10,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: true,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 4,
-          distance: 500,
+          dist: 100,
           health: 100,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Unknown,
-          username: "Death",
+          vType: VehicleStatus.Unknown,
+          name: "Death",
           id: 5,
-          distance: 500,
+          dist: -1,
           health: 70,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Walking,
-          username: "Death",
+          vType: VehicleStatus.Walking,
+          name: "Death",
           id: 6,
-          distance: 500,
+          dist: 500,
           health: 100,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Biking,
-          username: "Death",
+          vType: VehicleStatus.Biking,
+          name: "Death",
           id: 7,
-          distance: 500,
+          dist: 300,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 8,
-          distance: 500,
+          dist: -1,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 9,
-          distance: 500,
+          dist: -1,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 10,
-          distance: 500,
+          dist: 50,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 11,
-          distance: 500,
+          dist: 90,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 12,
-          distance: 500,
+          dist: 500,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 13,
-          distance: 500,
+          dist: 500,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 14,
-          distance: 500,
+          dist: 500,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 15,
-          distance: 500,
+          dist: 500,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
         {
-          vehicleStatus: VehicleStatus.Boat,
-          username: "Death",
+          vType: VehicleStatus.Boat,
+          name: "Death",
           id: 16,
-          distance: 500,
+          dist: 500,
           health: 40,
-          license: "3333333333333333333333deadbeef0000nosave",
+          admin: false,
         },
       ],
     },
@@ -255,7 +238,7 @@ debugData<PlayerData[]>(
   3000
 );
 
-function mockData () {
+function mockData() {
   const randomUsernames = [
     "hamy",
     "taso",
@@ -290,11 +273,10 @@ function mockData () {
 
     playerData.push({
       id: i + 1,
-      distance: randomDist,
+      dist: randomDist,
       health: 100,
-      license: "licensething",
-      username: randomUsername,
-      vehicleStatus: randomStatus,
+      name: randomUsername,
+      vType: randomStatus,
     });
   }
 

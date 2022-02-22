@@ -26,6 +26,8 @@ import { useAssociatedPlayerValue } from "../../state/playerDetails.state";
 import { useTranslate } from "react-polyglot";
 import { DialogBaseView } from "./Tabs/DialogBaseView";
 import { PlayerModalErrorBoundary } from "./ErrorHandling/PlayerModalErrorBoundary";
+import { usePermissionsValue } from "../../state/permissions.state";
+import { userHasPerm } from "../../utils/miscUtils";
 
 const LoadingModal: React.FC = () => (
   <Box
@@ -76,7 +78,7 @@ const PlayerModal: React.FC = () => {
       }}
     >
       <DialogTitle style={{ borderBottom: "1px solid rgba(221,221,221,0.54)" }}>
-        [{assocPlayer.id}] {assocPlayer.username}
+        [{assocPlayer.id}] {assocPlayer.name}
         <IconButton onClick={handleClose} className={classes.closeButton} size="large">
           <Close />
         </IconButton>
@@ -120,6 +122,7 @@ const DialogList: React.FC = () => {
   const { tab, setTab } = usePlayerModalContext();
   const classes = useListStyles();
   const t = useTranslate();
+  const playerPerms = usePermissionsValue();
 
   return (
     <List>
@@ -174,6 +177,7 @@ const DialogList: React.FC = () => {
       <ListItem
         className={classes.listItem}
         button
+        disabled={!userHasPerm("players.ban", playerPerms)}
         onClick={() => setTab(5)}
         selected={tab === 5}
         classes={{ root: classes.banRoot, selected: classes.selected }}

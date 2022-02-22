@@ -30,7 +30,8 @@ RegisterNetEvent('txAdmin:menu:sendAnnouncement', function(message)
   local allow = PlayerHasTxPermission(src, 'players.message')
   TriggerEvent("txaLogger:menuEvent", src, "announcement", allow, message)
   if allow then
-    TriggerClientEvent('txAdmin:receiveAnnounce', -1, message)
+    local author = TX_ADMINS[tostring(src)].tag
+    TriggerClientEvent("txAdmin:receiveAnnounce", -1, message, author)
   end
 end)
 
@@ -142,22 +143,8 @@ RegisterNetEvent('txAdmin:menu:healAllPlayers', function()
   if allow then
     -- For use with third party resources that handle players
     -- 'revive state' standalone from health (esx-ambulancejob, qb-ambulancejob, etc)
-    TriggerEvent('txAdmin:healedPlayer', -1)
+    TriggerEvent("txAdmin:events:healedPlayer", {id = -1})
     TriggerClientEvent('txAdmin:menu:healed', -1)
-  end
-end)
-
-RegisterNetEvent('txAdmin:menu:playerModeChanged', function(mode)
-  local src = source
-  if mode ~= 'godmode' and mode ~= 'noclip' and mode ~= 'none' then
-    debugPrint("Invalid player mode requested by " .. GetPlayerName(src) .. " (mode: " .. (mode or 'nil'))
-    return
-  end
-
-  local allow = PlayerHasTxPermission(src, 'players.playermode')
-  TriggerEvent("txaLogger:menuEvent", src, "playerModeChanged", allow, mode)
-  if allow then
-    TriggerClientEvent('txAdmin:menu:playerModeChanged', src, mode)
   end
 end)
 
@@ -168,7 +155,7 @@ RegisterNetEvent('txAdmin:menu:healMyself', function()
   if allow then
     -- For use with third party resources that handle players
     -- 'revive state' standalone from health (esx-ambulancejob, qb-ambulancejob, etc)
-    TriggerEvent('txAdmin:healedPlayer', id)
+    TriggerEvent("txAdmin:events:healedPlayer", {id = src})
     TriggerClientEvent('txAdmin:menu:healed', src)
   end
 end)
@@ -180,18 +167,17 @@ RegisterNetEvent('txAdmin:menu:healPlayer', function(id)
   end
   id = tonumber(id)
   local allow = PlayerHasTxPermission(src, 'players.heal')
-  local playerName = "unknown"
   if allow then
     local ped = GetPlayerPed(id)
     if ped then
       -- For use with third party resources that handle players
       -- 'revive state' standalone from health (esx-ambulancejob, qb-ambulancejob, etc)
-      TriggerEvent('txAdmin:healedPlayer', id)
+      -- TriggerEvent('txAdmin:healedPlayer', id)
+      TriggerEvent("txAdmin:events:healedPlayer", {id = id})
       TriggerClientEvent('txAdmin:menu:healed', id)
     end
-    playerName = GetPlayerName(id)
   end
-  TriggerEvent('txaLogger:menuEvent', src, "healPlayer", allow, playerName)
+  TriggerEvent('txaLogger:menuEvent', src, "healPlayer", allow, id)
 end)
 
 ---@param x number|nil
